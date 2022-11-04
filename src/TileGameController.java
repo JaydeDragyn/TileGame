@@ -1,13 +1,32 @@
 public class TileGameController extends Controller {
 
-    private DisplayPanel tileGameDisplayPanel;
+    private TileGameDisplayPanel tileGameDisplayPanel;
+    private Controller menuController;
+    private Controller gameController;
+    private Controller helpController;
+
+    public TileGameController() {
+        super(null);
+    }
 
     public void initialize() {
         tileGameDisplayPanel = new TileGameDisplayPanel();
         tileGameDisplayPanel.initialize(this);
+
+        menuController = new MenuController(this);
+        menuController.initialize();
+
+        gameController = new GameController(this);
+        gameController.initialize();
+
+        helpController = new HelpController(this);
+        helpController.initialize();
+
+        tileGameDisplayPanel.setState(menuController.getDisplayPanel());
     }
 
-    public DisplayElement getDisplayPanel() {
+    @Override
+    public DisplayPanel getDisplayPanel() {
         return tileGameDisplayPanel;
     }
 
@@ -15,10 +34,10 @@ public class TileGameController extends Controller {
     public void react(Button button) {
         // react to a button press
         switch (button.getCommand()) {
-            case SHOW_MENU -> System.out.println("Show the Menu");
-            case SHOW_HELP -> System.out.println("Show the Help");
+            case SHOW_MENU -> showMenu();
+            case SHOW_HELP -> showHelp();
+            case SHOW_GAME -> showGame();
         }
-
     }
 
     @Override
@@ -27,5 +46,15 @@ public class TileGameController extends Controller {
         // (like GameSettings for a new game)
     }
 
+    private void showMenu() {
+        tileGameDisplayPanel.setState(menuController.getDisplayPanel());
+    }
 
+    private void showHelp() {
+        tileGameDisplayPanel.setState(helpController.getDisplayPanel());
+    }
+
+    private void showGame() {
+        tileGameDisplayPanel.setState(gameController.getDisplayPanel());
+    }
 }

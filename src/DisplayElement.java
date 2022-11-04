@@ -6,14 +6,20 @@ import java.io.InputStream;
 
 public abstract class DisplayElement {
 
+    protected ElementID elementID;
     protected Point location;
     protected Dimension size;
     protected boolean isInteractive;
 
-    public DisplayElement(Point location, Dimension size) {
+    public DisplayElement(ElementID elementID, Point location, Dimension size) {
+        this.elementID = elementID;
         this.location = location;
         this.size = size;
         this.isInteractive = true;
+    }
+
+    public ElementID getID() {
+        return elementID;
     }
 
     public Point getLocation() {

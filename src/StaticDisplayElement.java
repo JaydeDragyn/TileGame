@@ -2,8 +2,8 @@ import java.awt.*;
 
 public abstract class StaticDisplayElement extends DisplayElement {
 
-    public StaticDisplayElement(Point location, Dimension size) {
-        super(location, size);
+    public StaticDisplayElement(ElementID elementID, Point location, Dimension size) {
+        super(elementID, location, size);
         this.isInteractive = false;
     }
 

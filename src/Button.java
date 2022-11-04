@@ -13,8 +13,8 @@ public class Button extends DisplayElement {
     private Command command;
     private Controller controller;
 
-    public Button(Point location, Dimension size, String buttonName, Command command, Controller controller) {
-        super(location, size);
+    public Button(ElementID elementID, Point location, Dimension size, String buttonName, Command command, Controller controller) {
+        super(elementID, location, size);
         buttonTexture = loadAsset("buttons/" + buttonName + "Button.png");
         buttonTextureHover = loadAsset("buttons/" + buttonName + "ButtonHover.png");
         buttonTexturePressed = loadAsset("buttons/" + buttonName + "ButtonPressed.png");
@@ -60,6 +60,14 @@ public class Button extends DisplayElement {
             controller.react(this);
         }
         pressed = false;
+    }
+
+    public void enable() {
+        enabled = true;
+    }
+
+    public void disable() {
+        enabled = false;
     }
 
 

@@ -10,10 +10,11 @@ public class TileGameDisplayPanel extends DisplayPanel {
     private StaticImage title;
     private Button menuButton;
     private Button helpButton;
+    private DisplayPanel centerDisplayPanel;
 
 
     public TileGameDisplayPanel() {
-        super(new Point(0,0), new Dimension(800, 800));
+        super(ElementID.TILE_GAME_DISPLAY_PANEL, new Point(0,0), new Dimension(800, 800));
         isInteractive = true;
     }
 
@@ -22,6 +23,7 @@ public class TileGameDisplayPanel extends DisplayPanel {
         drawElement(pen, title);
         drawElement(pen, menuButton);
         drawElement(pen, helpButton);
+        drawElement(pen, centerDisplayPanel);
 
         return texture;
     }
@@ -32,10 +34,10 @@ public class TileGameDisplayPanel extends DisplayPanel {
         texture = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
         pen = texture.createGraphics();
 
-        background = new StaticImage(new Point(0,0), "Background");
-        title = new StaticImage(new Point(225, 22), "Tile Game");
-        menuButton = new Button(new Point(25, 20), new Dimension(100, 100), "Menu", Command.SHOW_MENU, this.controller);
-        helpButton = new Button(new Point(675, 20), new Dimension(100, 100), "Help", Command.SHOW_HELP, this.controller);
+        background = new StaticImage(ElementID.STATIC_IMAGE, new Point(0,0), "Background");
+        title = new StaticImage(ElementID.STATIC_IMAGE, new Point(225, 22), "Tile Game");
+        menuButton = new Button(ElementID.BUTTON, new Point(25, 20), new Dimension(100, 100), "Menu", Command.SHOW_MENU, this.controller);
+        helpButton = new Button(ElementID.BUTTON, new Point(675, 20), new Dimension(100, 100), "Help", Command.SHOW_HELP, this.controller);
 
         addElement(background);
         addElement(title);
@@ -43,5 +45,29 @@ public class TileGameDisplayPanel extends DisplayPanel {
         addElement(helpButton);
     }
 
+    public void setState(DisplayPanel displayPanel) {
+        setCenterDisplayPanel(displayPanel);
+
+        switch (displayPanel.getID()) {
+            case MENU_DISPLAY_PANEL -> {
+                menuButton.disable();
+                helpButton.enable();
+            }
+            case GAME_DISPLAY_PANEL -> {
+                menuButton.enable();
+                helpButton.enable();
+            }
+            case HELP_DISPLAY_PANEL -> {
+                menuButton.enable();
+                helpButton.disable();
+            }
+        }
+    }
+
+    private void setCenterDisplayPanel(DisplayPanel centerDisplayPanel) {
+        removeElement(this.centerDisplayPanel);
+        this.centerDisplayPanel = centerDisplayPanel;
+        addElement(this.centerDisplayPanel);
+    }
 
 }

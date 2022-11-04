@@ -36,7 +36,7 @@ public class GameWindow extends JPanel {
         frame.setLocation(screenCenter.x - GAME_WINDOW_SIZE.width / 2,
                 screenCenter.y - GAME_WINDOW_SIZE.height / 2);
         frame.setBackground(Color.BLACK);
-        frame.setIconImage(new StaticImage(null, "Tile Game Icon").getTexture());
+        frame.setIconImage(new StaticImage(ElementID.STATIC_IMAGE, null, "Tile Game Icon").getTexture());
         frame.add(this);
         frame.pack();
         frame.setVisible(true);

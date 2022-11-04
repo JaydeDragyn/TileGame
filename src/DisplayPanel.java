@@ -6,8 +6,8 @@ public abstract class DisplayPanel extends DisplayElement {
     protected ArrayList<DisplayElement> elements;
     protected DisplayElement lastElementInteracted;
 
-    public DisplayPanel(Point location, Dimension size) {
-        super(location, size);
+    public DisplayPanel(ElementID elementID, Point location, Dimension size) {
+        super(elementID, location, size);
         elements = new ArrayList<>();
         lastElementInteracted = null;
     }
