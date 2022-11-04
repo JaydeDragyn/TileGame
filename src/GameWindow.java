@@ -6,16 +6,17 @@ import java.awt.event.KeyEvent;
 public class GameWindow extends JPanel {
 
     private final Dimension GAME_WINDOW_SIZE;
+    private final DisplayElement background;
 
     public GameWindow() {
         GAME_WINDOW_SIZE = new Dimension(800, 800);
+        background = new DisplayElement("images/Background.png");
     }
 
     @Override
     public void paintComponent(Graphics g){
         Graphics2D screen = (Graphics2D) g;
-        screen.setColor(Color.WHITE);
-        screen.drawString("Tile Game!", 10, 20);
+        screen.drawImage(background.getTexture(), 0, 0, null);
     }
 
     public void initialize() {
