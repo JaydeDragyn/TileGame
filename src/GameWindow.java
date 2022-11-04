@@ -11,6 +11,13 @@ public class GameWindow extends JPanel {
         GAME_WINDOW_SIZE = new Dimension(800, 800);
     }
 
+    @Override
+    public void paintComponent(Graphics g){
+        Graphics2D screen = (Graphics2D) g;
+        screen.setColor(Color.WHITE);
+        screen.drawString("Tile Game!", 10, 20);
+    }
+
     public void initialize() {
         initializeWindow();
         initializeListeners();
