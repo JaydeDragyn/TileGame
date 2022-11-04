@@ -34,6 +34,10 @@ public class Button extends DisplayElement {
         return buttonTexturePressed;
     }
 
+    public Command getCommand() {
+        return command;
+    }
+
     @Override
     public void mouseMovedOn(Point location) {
         hovered = true;
@@ -52,6 +56,9 @@ public class Button extends DisplayElement {
 
     @Override
     public void mouseReleased(Point location) {
+        if (enabled && pressed) {
+            controller.react(this);
+        }
         pressed = false;
     }
 
