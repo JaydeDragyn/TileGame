@@ -1,0 +1,64 @@
+TileGame
+program structure
+
+Idea is to use a sort of MVC (Model/View/Controller) design, though for this
+simple program there may not be a lot of data to require the Model part, and we
+may just store the Model in the Controller.  Depends on how complex we need to
+get.
+
+The overall game Controller will be TileGameController.  We will also have a
+GameController that will handle gameplay, and "TileGameController" identifies
+it as the Controller for the entire TileGame.
+
+The overall game View will be TileGameDisplayPanel.  When TGController needs
+to communicate to the user, it will tell TGDisplayPanel what to communicate,
+and TileGameDisplayPanel will update the display.
+
+The TileGameDisplayPanel will keep track of a few items:
+    Menu button - press to bring up the Settings menu
+    Help button - press to bring up the Game info/help
+    Center panel - Where the majority of interaction will take place
+    Info panel - place below the Center Panel that will provide context
+                dependent info (like, if the user hovers the mouse over the
+                help button, this Info panel will display the text
+                "Show the help/info")
+
+The Center panel will hold one of 3 sub-DisplayPanels:
+    Menu panel - The settings menu with buttons and labels to choose the
+                difficulty of the next game.
+    Game panel - The primary game panel, consisting of the tiles that the
+                user will interact with in the course of playing the game.
+    Help panel - The help/info that will explain the game objective, how to
+                play, etc.
+
+Each of these panels will be controlled by a Controller:
+    Menu controller - TGController can tell Menu controller to do something
+                (like react to a new game starting), and the MenuController
+                will do what it needs to do, including telling MenuPanel
+                to display something, updating its own internal info, etc.
+    Game controller - TGController can give the GameController a new
+                GameSettings object, and the GameController will set up the
+                game and tell the GameDisplayPanel to show the new game.
+    Help controller - Mainly controls which page of the help display is
+                showing at any given time, make sure the appropriate buttons
+                are active, etc.
+
+Buttons
+The primary function of buttons will be to perform an action - like the user
+pressing the Start button to start a new game.  Buttons will have several
+states, including "hovered" (if the mouse is hovering over the button),
+"pressed" (if the mouse button was pressed while hovering over the button),
+etc.
+
+A button will need an associated Command (like SHOW_HELP, SHOW_MENU, etc.), a
+controller to report that command to (the Menu button will send SHOW_MENU to
+the TileGameController so that the TGController can have the MenuDisplayPanel
+shown in the center of the screen), and an identity so the controller can
+differentiate between similar buttons (like the tiles of the main game).
+
+Buttons will be display elements, so they will extend DisplayElement.
+A static image won't need more than the base texture that it loads, so it will
+also extend DisplayElement.
+All DisplayElements will need to provide a texture and a location so the
+DisplayPanels can display the texture at the appropriate place.
+

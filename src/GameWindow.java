@@ -1,23 +1,24 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 public class GameWindow extends JPanel {
 
     private final Dimension GAME_WINDOW_SIZE;
-    private final DisplayElement background;
+    private final TileGameDisplayPanel tileGameDisplayPanel;
 
     public GameWindow() {
         GAME_WINDOW_SIZE = new Dimension(800, 800);
-        background = new DisplayElement("images/Background.png");
+        tileGameDisplayPanel = new TileGameDisplayPanel();
+        tileGameDisplayPanel.initialize();
     }
 
     @Override
     public void paintComponent(Graphics g){
         Graphics2D screen = (Graphics2D) g;
-        screen.drawImage(background.getTexture(), 0, 0, null);
+        DisplayElement.drawElement(screen, tileGameDisplayPanel);
     }
+
 
     public void initialize() {
         initializeWindow();
@@ -37,6 +38,7 @@ public class GameWindow extends JPanel {
         frame.setLocation(screenCenter.x - GAME_WINDOW_SIZE.width / 2,
                 screenCenter.y - GAME_WINDOW_SIZE.height / 2);
         frame.setBackground(Color.BLACK);
+        frame.setIconImage(new StaticImage(null, "Tile Game Icon").getTexture());
         frame.add(this);
         frame.pack();
         frame.setVisible(true);
