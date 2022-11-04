@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GameWindow extends JPanel {
 
@@ -10,6 +12,11 @@ public class GameWindow extends JPanel {
     }
 
     public void initialize() {
+        initializeWindow();
+        initializeListeners();
+    }
+
+    public void initializeWindow() {
         this.setPreferredSize(GAME_WINDOW_SIZE);
         this.setBackground(Color.BLACK);
 
@@ -27,5 +34,17 @@ public class GameWindow extends JPanel {
         frame.setVisible(true);
 
         requestFocusInWindow();
+    }
+
+    public void initializeListeners() {
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    System.exit(0);
+                }
+            }
+        });
     }
 }
