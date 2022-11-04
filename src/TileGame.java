@@ -8,8 +8,11 @@ public class TileGame {
     }
 
     public static void createGame() {
+        TileGameController tileGameController = new TileGameController();
+        tileGameController.initialize();
+
         GameWindow gameWindow = new GameWindow();
-        gameWindow.initialize();
+        gameWindow.initialize(tileGameController.getDisplayPanel());
     }
 
 }

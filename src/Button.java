@@ -10,9 +10,11 @@ public class Button extends DisplayElement {
     private boolean enabled;
     private boolean hovered;
     private boolean pressed;
+    private Command command;
+    private Controller controller;
 
-    public Button(Point location, String buttonName) {
-        super(location);
+    public Button(Point location, Dimension size, String buttonName, Command command, Controller controller) {
+        super(location, size);
         buttonTexture = loadAsset("buttons/" + buttonName + "Button.png");
         buttonTextureHover = loadAsset("buttons/" + buttonName + "ButtonHover.png");
         buttonTexturePressed = loadAsset("buttons/" + buttonName + "ButtonPressed.png");
@@ -20,6 +22,8 @@ public class Button extends DisplayElement {
         enabled = true;
         hovered = false;
         pressed = false;
+        this.command = command;
+        this.controller = controller;
     }
 
     @Override
@@ -29,4 +33,27 @@ public class Button extends DisplayElement {
         if (hovered && !pressed) { return buttonTextureHover; }
         return buttonTexturePressed;
     }
+
+    @Override
+    public void mouseMovedOn(Point location) {
+        hovered = true;
+    }
+
+    @Override
+    public void mouseMovedOff() {
+        hovered = false;
+        pressed = false;
+    }
+
+    @Override
+    public void mousePressed(Point location) {
+        pressed = true;
+    }
+
+    @Override
+    public void mouseReleased(Point location) {
+        pressed = false;
+    }
+
+
 }

@@ -7,16 +7,33 @@ import java.io.InputStream;
 public abstract class DisplayElement {
 
     protected Point location;
+    protected Dimension size;
+    protected boolean isInteractive;
 
-    public DisplayElement(Point location) {
+    public DisplayElement(Point location, Dimension size) {
         this.location = location;
+        this.size = size;
+        this.isInteractive = true;
     }
-
-    public abstract BufferedImage getTexture();
 
     public Point getLocation() {
         return location;
     }
+
+    public Dimension getSize() {
+        return size;
+    }
+
+    public boolean isInteractive() {
+        return isInteractive;
+    }
+
+    public abstract BufferedImage getTexture();
+
+    public abstract void mouseMovedOn(Point location);
+    public abstract void mouseMovedOff();
+    public abstract void mousePressed(Point location);
+    public abstract void mouseReleased(Point location);
 
     //-------------------------------------------------------------------------
 
