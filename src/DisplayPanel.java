@@ -22,15 +22,7 @@ public abstract class DisplayPanel extends DisplayElement {
 
     public abstract void initialize();
 
-    @Override
-    public BufferedImage getTexture() {
-        pen.setColor(Color.BLACK);
-        pen.fillRect(0, 0, size.width, size.height);
-        for (DisplayElement element : elements) {
-            drawElement(pen, element);
-        }
-        return texture;
-    }
+    public abstract void react(Command command, Object object);
 
     @Override
     public void mouseMovedOn(Point location) {
@@ -48,6 +40,18 @@ public abstract class DisplayPanel extends DisplayElement {
         }
 
         lastElementInteracted = newDisplayElement;
+    }
+
+    @Override
+    public BufferedImage getTexture() {
+        pen.setColor(Color.BLACK);
+        pen.fillRect(0, 0, size.width, size.height);
+
+        for (DisplayElement element : elements) {
+            drawElement(pen, element);
+        }
+
+        return texture;
     }
 
     @Override

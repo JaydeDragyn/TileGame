@@ -1,6 +1,5 @@
 public class TileGameController extends Controller {
 
-    private TileGameDisplayPanel tileGameDisplayPanel;
     private Controller menuController;
     private Controller gameController;
     private Controller helpController;
@@ -10,8 +9,8 @@ public class TileGameController extends Controller {
     }
 
     public void initialize() {
-        tileGameDisplayPanel = new TileGameDisplayPanel(this);
-        tileGameDisplayPanel.initialize();
+        displayPanel = new TileGameDisplayPanel(this);
+        displayPanel.initialize();
 
         menuController = new MenuController(this);
         menuController.initialize();
@@ -22,12 +21,12 @@ public class TileGameController extends Controller {
         helpController = new HelpController(this);
         helpController.initialize();
 
-        tileGameDisplayPanel.setState(menuController.getDisplayPanel());
+        displayPanel.react(Command.SET_STATE, menuController.getDisplayPanel());
     }
 
     @Override
     public DisplayPanel getDisplayPanel() {
-        return tileGameDisplayPanel;
+        return displayPanel;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class TileGameController extends Controller {
         switch (button.getCommand()) {
             case SHOW_MENU -> showMenu();
             case SHOW_HELP -> showHelp();
-            case SHOW_GAME -> showGame();
+            case RETURN_TO_GAME -> showGame();
         }
     }
 
@@ -47,14 +46,14 @@ public class TileGameController extends Controller {
     }
 
     private void showMenu() {
-        tileGameDisplayPanel.setState(menuController.getDisplayPanel());
+        displayPanel.react(Command.SET_STATE, menuController.getDisplayPanel());
     }
 
     private void showHelp() {
-        tileGameDisplayPanel.setState(helpController.getDisplayPanel());
+        displayPanel.react(Command.SET_STATE, helpController.getDisplayPanel());
     }
 
     private void showGame() {
-        tileGameDisplayPanel.setState(gameController.getDisplayPanel());
+        displayPanel.react(Command.SET_STATE, gameController.getDisplayPanel());
     }
 }

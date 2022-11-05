@@ -1,5 +1,8 @@
 public enum Command {
     SHOW_MENU,
     SHOW_HELP,
-    SHOW_GAME,
+    START_NEW_GAME,
+    RETURN_TO_GAME,
+    QUIT_GAME,
+    SET_STATE,
 }

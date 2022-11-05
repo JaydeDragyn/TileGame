@@ -6,6 +6,7 @@ public class TileGameDisplayPanel extends DisplayPanel {
     private Button menuButton;
     private Button helpButton;
     private DisplayPanel centerDisplayPanel;
+    private DisplayPanel infoDisplayPanel;
 
     public TileGameDisplayPanel(Controller controller) {
         super("Tile Game Display Panel", new Point(0,0), controller);
@@ -15,6 +16,9 @@ public class TileGameDisplayPanel extends DisplayPanel {
     }
 
     public void initialize() {
+        infoDisplayPanel = new InfoDisplayPanel(controller);
+        infoDisplayPanel.initialize();
+
         menuButton = new ActionButton("Menu", new Point(25, 20), Command.SHOW_MENU, controller);
         helpButton = new ActionButton("Help", new Point(675, 20), Command.SHOW_HELP, controller);
 
@@ -22,6 +26,13 @@ public class TileGameDisplayPanel extends DisplayPanel {
         addElement(new StaticImage("Tile Game", new Point(225, 22)));
         addElement(menuButton);
         addElement(helpButton);
+        addElement(infoDisplayPanel);
+    }
+
+    public void react (Command command, Object object) {
+        switch (command) {
+            case SET_STATE -> setState((DisplayPanel) object);
+        }
     }
 
     public void setState(DisplayPanel displayPanel) {
