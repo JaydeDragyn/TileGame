@@ -43,6 +43,10 @@ public class TileGameController extends Controller {
     public void react(Command command, Object object) {
         // react to another controller that may provide additional info
         // (like GameSettings for a new game)
+        switch (command) {
+            case HOVERING -> displayPanel.react(Command.HOVERING, object);
+            case NOT_HOVERING -> displayPanel.react(Command.NOT_HOVERING, object);
+        }
     }
 
     private void showMenu() {

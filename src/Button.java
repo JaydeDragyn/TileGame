@@ -23,13 +23,16 @@ public abstract class Button extends DisplayElement {
 
     @Override
     public void mouseMovedOn(Point location) {
+        if (!enabled) { return; }
         hovered = true;
+        controller.react(Command.HOVERING, this);
     }
 
     @Override
     public void mouseMovedOff() {
         hovered = false;
         pressed = false;
+        controller.react(Command.NOT_HOVERING, this);
     }
 
     @Override

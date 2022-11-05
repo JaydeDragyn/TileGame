@@ -5,4 +5,8 @@ public enum Command {
     RETURN_TO_GAME,
     QUIT_GAME,
     SET_STATE,
+    HOVERING,
+    NOT_HOVERING,
+    PREV_HELP_PAGE,
+    NEXT_HELP_PAGE,
 }

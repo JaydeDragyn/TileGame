@@ -32,11 +32,15 @@ public class TileGameDisplayPanel extends DisplayPanel {
     public void react (Command command, Object object) {
         switch (command) {
             case SET_STATE -> setState((DisplayPanel) object);
+            case HOVERING -> hover((Button) object);
+            case NOT_HOVERING -> hover(null);
         }
     }
 
-    public void setState(DisplayPanel displayPanel) {
-        setCenterDisplayPanel(displayPanel);
+    private void setState(DisplayPanel displayPanel) {
+        removeElement(this.centerDisplayPanel);
+        this.centerDisplayPanel = displayPanel;
+        addElement(this.centerDisplayPanel);
 
         switch (displayPanel.getName()) {
             case "Menu Display Panel" -> {
@@ -52,12 +56,17 @@ public class TileGameDisplayPanel extends DisplayPanel {
                 helpButton.disable();
             }
         }
+
+        infoDisplayPanel.react(Command.NOT_HOVERING, null);
     }
 
-    private void setCenterDisplayPanel(DisplayPanel centerDisplayPanel) {
-        removeElement(this.centerDisplayPanel);
-        this.centerDisplayPanel = centerDisplayPanel;
-        addElement(this.centerDisplayPanel);
+    private void hover(Button button) {
+        if (button == null) {
+            infoDisplayPanel.react(Command.NOT_HOVERING, null);
+        } else {
+            infoDisplayPanel.react(Command.HOVERING, button.getName());
+        }
     }
+
 
 }

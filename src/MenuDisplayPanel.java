@@ -17,7 +17,6 @@ public class MenuDisplayPanel extends DisplayPanel {
         backButton = new ActionButton("Back", new Point(187, 425), Command.RETURN_TO_GAME, controller);
         quitButton = new ActionButton("Quit", new Point(350, 425), Command.QUIT_GAME, controller);
 
-
         addElement(new TextLabel("Settings Menu", new Point(127, 0), TextLabel.FontSize.LARGE, new Color(0.5f, 1.0f, 0.5f)));
 
         addElement(startButton);
@@ -28,6 +27,9 @@ public class MenuDisplayPanel extends DisplayPanel {
 
     @Override
     public void react(Command command, Object object) {
-
+        switch (command) {
+            case HOVERING -> controller.react(Command.HOVERING, object);
+            case NOT_HOVERING -> controller.react(Command.NOT_HOVERING, object);
+        }
     }
 }

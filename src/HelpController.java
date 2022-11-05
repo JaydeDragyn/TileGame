@@ -17,6 +17,8 @@ public class HelpController extends Controller {
 
     @Override
     public void react(Command command, Object object) {
-
+        switch (command) {
+            case HOVERING, NOT_HOVERING -> controller.react(command, object);
+        }
     }
 }
