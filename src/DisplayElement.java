@@ -6,19 +6,13 @@ import java.io.InputStream;
 
 public abstract class DisplayElement {
 
-    protected String name;
     protected Point location;
     protected Dimension size;
     protected boolean interactive;
 
-    public DisplayElement(String name, Point location) {
-        this.name = name;
+    public DisplayElement(Point location) {
         this.location = location;
         this.interactive = true;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Point getLocation() {

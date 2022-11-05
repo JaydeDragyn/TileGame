@@ -31,8 +31,9 @@ public class TileGameController extends Controller {
 
     @Override
     public void react(Button button) {
+        Command command = button.getButtonID().getCommand();
         // react to a button press
-        switch (button.getCommand()) {
+        switch (command) {
             case SHOW_MENU -> showMenu();
             case SHOW_HELP -> showHelp();
             case RETURN_TO_GAME -> showGame();

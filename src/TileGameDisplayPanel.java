@@ -9,7 +9,7 @@ public class TileGameDisplayPanel extends DisplayPanel {
     private DisplayPanel infoDisplayPanel;
 
     public TileGameDisplayPanel(Controller controller) {
-        super("Tile Game Display Panel", new Point(0,0), controller);
+        super(DisplayPanelID.TILE_GAME, new Point(0,0), controller);
         size = new Dimension(800, 800);
         texture = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
         pen = texture.createGraphics();
@@ -19,8 +19,8 @@ public class TileGameDisplayPanel extends DisplayPanel {
         infoDisplayPanel = new InfoDisplayPanel(controller);
         infoDisplayPanel.initialize();
 
-        menuButton = new ActionButton("Menu", new Point(25, 20), Command.SHOW_MENU, controller);
-        helpButton = new ActionButton("Help", new Point(675, 20), Command.SHOW_HELP, controller);
+        menuButton = new ActionButton(ButtonID.BUTTON_MENU, new Point(25, 20), controller);
+        helpButton = new ActionButton(ButtonID.BUTTON_HELP, new Point(675, 20), controller);
 
         addElement(new StaticImage("Background", new Point(0,0)));
         addElement(new StaticImage("Tile Game", new Point(225, 22)));
@@ -42,16 +42,16 @@ public class TileGameDisplayPanel extends DisplayPanel {
         this.centerDisplayPanel = displayPanel;
         addElement(this.centerDisplayPanel);
 
-        switch (displayPanel.getName()) {
-            case "Menu Display Panel" -> {
+        switch (displayPanel.getDisplayPanelID()) {
+            case MENU -> {
                 menuButton.disable();
                 helpButton.enable();
             }
-            case "Game Display Panel" -> {
+            case GAME -> {
                 menuButton.enable();
                 helpButton.enable();
             }
-            case "Help Display Panel" -> {
+            case HELP -> {
                 menuButton.enable();
                 helpButton.disable();
             }
@@ -64,7 +64,7 @@ public class TileGameDisplayPanel extends DisplayPanel {
         if (button == null) {
             infoDisplayPanel.react(Command.NOT_HOVERING, null);
         } else {
-            infoDisplayPanel.react(Command.HOVERING, button.getName());
+            infoDisplayPanel.react(Command.HOVERING, button);
         }
     }
 

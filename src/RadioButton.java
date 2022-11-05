@@ -10,8 +10,8 @@ public class RadioButton extends Button {
     private static boolean buttonImagesLoaded = false;
     private boolean activated;
 
-    public RadioButton(String name, Point location, Command command, Controller controller) {
-        super(name, location, command, controller);
+    public RadioButton(ButtonID name, Point location, Controller controller) {
+        super(name, location, controller);
         if (!buttonImagesLoaded) {
             loadRadioButtonImages();
         }

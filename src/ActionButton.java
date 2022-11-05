@@ -8,8 +8,9 @@ public class ActionButton extends Button {
     private final BufferedImage buttonTexturePressed;
     private final BufferedImage buttonTextureDisabled;
 
-    public ActionButton(String buttonName, Point location, Command command, Controller controller) {
-        super(buttonName, location, command, controller);
+    public ActionButton(ButtonID buttonID, Point location, Controller controller) {
+        super(buttonID, location, controller);
+        String buttonName = buttonID.getName();
         buttonTexture = loadAsset("buttons/" + buttonName + "Button.png");
         buttonTextureHover = loadAsset("buttons/" + buttonName + "ButtonHover.png");
         buttonTexturePressed = loadAsset("buttons/" + buttonName + "ButtonPressed.png");

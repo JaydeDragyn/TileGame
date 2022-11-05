@@ -8,13 +8,25 @@ public class TextLabel extends StaticDisplayElement {
     public enum FontSize {
         SMALL,
         MEDIUM,
-        LARGE,
+        LARGE
+    }
+
+    public static Dimension getTextLabelSize(String text, FontSize fontSize) {
+        Font font;
+        switch (fontSize) {
+            case LARGE -> font = fontLarge;
+            case MEDIUM -> font = fontMedium;
+            default -> font = fontSmall;
+        }
+        FontMetrics fontMetrics = new Canvas().getFontMetrics(font);
+        return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
     }
 
     private final BufferedImage texture;
+    private final String text;
 
-    public TextLabel(String name, Point location, FontSize fontSize, Color color) {
-        super(name, location);
+    public TextLabel(String text, Point location, FontSize fontSize, Color color) {
+        super(location);
         if (!fontLoaded) { registerFont(); }
 
         Font font;
@@ -24,26 +36,31 @@ public class TextLabel extends StaticDisplayElement {
             default -> font = fontSmall;
         }
 
+        this.text = text;
         FontMetrics fontMetrics = new Canvas().getFontMetrics(font);
-        this.size = new Dimension(fontMetrics.stringWidth(name)+1, fontMetrics.getHeight());
+        this.size = new Dimension(fontMetrics.stringWidth(text)+1, fontMetrics.getHeight());
 
         texture = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
         Graphics2D pen = texture.createGraphics();
 
         pen.setFont(font);
         pen.setColor(color);
-        pen.drawString(name, 0, fontMetrics.getAscent());
+        pen.drawString(text, 0, fontMetrics.getAscent());
 
         pen.dispose();
+    }
+
+    public String getText() {
+        return text;
     }
 
     public BufferedImage getTexture() {
         return texture;
     }
-
     public static Font fontLarge;
     public static Font fontMedium;
     public static Font fontSmall;
+
     private static boolean fontLoaded = false;
 
     private void registerFont() {
@@ -78,17 +95,6 @@ public class TextLabel extends StaticDisplayElement {
             fontSmall = new Font("monospaced", Font.PLAIN, 24);
             System.out.println("Failed to load a font");
         }
-    }
-
-    public static Dimension getTextLabelSize(String text, FontSize fontSize) {
-        Font font;
-        switch (fontSize) {
-            case LARGE -> font = fontLarge;
-            case MEDIUM -> font = fontMedium;
-            default -> font = fontSmall;
-        }
-        FontMetrics fontMetrics = new Canvas().getFontMetrics(font);
-        return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
     }
 
 }

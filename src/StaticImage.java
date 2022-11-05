@@ -5,9 +5,9 @@ public class StaticImage extends StaticDisplayElement {
 
     private final BufferedImage texture;
 
-    public StaticImage(String name, Point location) {
-        super(name, location);
-        texture = loadAsset("images/" + name + ".png");
+    public StaticImage(String imageName, Point location) {
+        super(location);
+        texture = loadAsset("images/" + imageName + ".png");
         size = new Dimension(texture.getWidth(), texture.getHeight());
     }
 

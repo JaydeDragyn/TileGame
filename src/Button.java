@@ -2,23 +2,35 @@ import java.awt.*;
 
 public abstract class Button extends DisplayElement {
 
+    protected ButtonID buttonID;
     protected boolean enabled;
     protected boolean hovered;
     protected boolean pressed;
-    protected Command command;
     protected Controller controller;
 
-    public Button(String buttonName, Point location, Command command, Controller controller) {
-        super(buttonName, location);
+    public Button(ButtonID buttonID, Point location, Controller controller) {
+        super(location);
+        this.buttonID = buttonID;
+        this.controller = controller;
         enabled = true;
         hovered = false;
         pressed = false;
-        this.command = command;
-        this.controller = controller;
+    }
+
+    public ButtonID getButtonID() {
+        return buttonID;
+    }
+
+    public String getName() {
+        return buttonID.getName();
+    }
+
+    public String getHoverText() {
+        return buttonID.getHoverText();
     }
 
     public Command getCommand() {
-        return command;
+        return getButtonID().getCommand();
     }
 
     @Override

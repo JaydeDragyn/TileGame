@@ -5,14 +5,16 @@ import java.util.ArrayList;
 public abstract class DisplayPanel extends DisplayElement {
 
     protected Controller controller;
+    protected DisplayPanelID displayPanelID;
     protected ArrayList<DisplayElement> elements;
     protected DisplayElement lastElementInteracted;
     protected BufferedImage texture;
     protected Graphics2D pen;
 
-    public DisplayPanel(String name, Point location, Controller controller) {
-        super(name, location);
+    public DisplayPanel(DisplayPanelID displayPanelID, Point location, Controller controller) {
+        super(location);
         this.controller = controller;
+        this.displayPanelID = displayPanelID;
         elements = new ArrayList<>();
         lastElementInteracted = null;
 
@@ -23,6 +25,22 @@ public abstract class DisplayPanel extends DisplayElement {
     public abstract void initialize();
 
     public abstract void react(Command command, Object object);
+
+    public DisplayPanelID getDisplayPanelID() {
+        return displayPanelID;
+    }
+
+    @Override
+    public BufferedImage getTexture() {
+        pen.setColor(Color.BLACK);
+        pen.fillRect(0, 0, size.width, size.height);
+
+        for (DisplayElement element : elements) {
+            drawElement(pen, element);
+        }
+
+        return texture;
+    }
 
     @Override
     public void mouseMovedOn(Point location) {
@@ -40,18 +58,6 @@ public abstract class DisplayPanel extends DisplayElement {
         }
 
         lastElementInteracted = newDisplayElement;
-    }
-
-    @Override
-    public BufferedImage getTexture() {
-        pen.setColor(Color.BLACK);
-        pen.fillRect(0, 0, size.width, size.height);
-
-        for (DisplayElement element : elements) {
-            drawElement(pen, element);
-        }
-
-        return texture;
     }
 
     @Override
@@ -106,7 +112,7 @@ public abstract class DisplayPanel extends DisplayElement {
         }
     }
 
-    protected DisplayElement findElementUnderMouse(Point location) {
+    private DisplayElement findElementUnderMouse(Point location) {
         // search through list of elements to see if the mouse is on one of them
         // if it is on an interactive element (button, tile, radiobutton)
         // then return that element
@@ -122,14 +128,14 @@ public abstract class DisplayPanel extends DisplayElement {
         return null;
     }
 
-    protected boolean isWithin(Point location, Point topLeft, Dimension size) {
+    private boolean isWithin(Point location, Point topLeft, Dimension size) {
         return location.x >= topLeft.x &&
                 location.y >= topLeft.y &&
                 location.x < (topLeft.x + size.width) &&
                 location.y < (topLeft.y + size.height);
     }
 
-    protected Point getRelativeMousePosition(DisplayElement element, Point location) {
+    private Point getRelativeMousePosition(DisplayElement element, Point location) {
         // subtract the element's position from the mouse position to get an
         // adjusted position within that element
         Point relativeMousePosition = new Point();

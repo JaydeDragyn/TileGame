@@ -3,7 +3,7 @@ import java.awt.*;
 public class GameDisplayPanel extends DisplayPanel {
 
     public GameDisplayPanel(Controller controller) {
-        super("Game Display Panel", new Point(150,150), controller);
+        super(DisplayPanelID.GAME, new Point(150,150), controller);
         size = new Dimension(500, 500);
     }
 

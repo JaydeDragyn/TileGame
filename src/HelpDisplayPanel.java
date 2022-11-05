@@ -7,15 +7,15 @@ public class HelpDisplayPanel extends DisplayPanel {
     private ActionButton nextButton;
 
     public HelpDisplayPanel(Controller controller) {
-        super("Help Display Panel", new Point(150,150), controller);
+        super(DisplayPanelID.HELP, new Point(150,150), controller);
         size = new Dimension(500, 500);
     }
 
     @Override
     public void initialize() {
-        prevButton = new ActionButton("Prev", new Point(25, 425), Command.PREV_HELP_PAGE, controller);
-        backButton = new ActionButton("Back", new Point(187, 425), Command.RETURN_TO_GAME, controller);
-        nextButton = new ActionButton("Next", new Point(350, 425), Command.NEXT_HELP_PAGE, controller);
+        prevButton = new ActionButton(ButtonID.BUTTON_PREV, new Point(25, 425), controller);
+        backButton = new ActionButton(ButtonID.BUTTON_BACK, new Point(187, 425), controller);
+        nextButton = new ActionButton(ButtonID.BUTTON_NEXT, new Point(350, 425), controller);
 
 
 
