@@ -45,16 +45,6 @@ public class GameWindow extends JPanel {
     }
 
     private void initializeListeners() {
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    System.exit(0);
-                }
-            }
-        });
-
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
