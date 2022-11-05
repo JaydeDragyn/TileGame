@@ -15,5 +15,7 @@ public enum Command {
     BOARD_SIZE_3X3,
     BOARD_SIZE_3X5,
     BOARD_SIZE_5X5,
-
+    CYCLE_EASY_TILE,
+    CYCLE_MEDIUM_TILE,
+    CYCLE_HARD_TILE,
 }
