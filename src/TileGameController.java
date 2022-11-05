@@ -36,17 +36,18 @@ public class TileGameController extends Controller {
         switch (command) {
             case SHOW_MENU -> showMenu();
             case SHOW_HELP -> showHelp();
-            case RETURN_TO_GAME -> showGame();
         }
     }
 
     @Override
     public void react(Command command, Object object) {
-        // react to another controller that may provide additional info
-        // (like GameSettings for a new game)
         switch (command) {
+            // Button hovering (other controllers just pass these through)
             case HOVERING -> displayPanel.react(Command.HOVERING, object);
             case NOT_HOVERING -> displayPanel.react(Command.NOT_HOVERING, object);
+
+            case START_NEW_GAME -> startNewGame((GameSettings) object);
+            case RETURN_TO_GAME -> showGame();
         }
     }
 
@@ -60,5 +61,10 @@ public class TileGameController extends Controller {
 
     private void showGame() {
         displayPanel.react(Command.SET_STATE, gameController.getDisplayPanel());
+    }
+
+    private void startNewGame(GameSettings gameSettings) {
+        gameController.react(Command.START_NEW_GAME, gameSettings);
+        showGame();
     }
 }

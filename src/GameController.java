@@ -17,6 +17,14 @@ public class GameController extends Controller {
 
     @Override
     public void react(Command command, Object object) {
+        switch (command) {
+            case START_NEW_GAME -> startNewGame((GameSettings) object);
+        }
+    }
 
+    private void startNewGame(GameSettings gameSettings) {
+        System.out.println("Starting new game with settings:");
+        System.out.println(gameSettings.getProgression());
+        System.out.println(gameSettings.getBoardSize());
     }
 }

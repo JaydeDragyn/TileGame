@@ -68,14 +68,40 @@ public class MenuDisplayPanel extends DisplayPanel {
         addElement(startButton);
         addElement(backButton);
         addElement(quitButton);
-
     }
 
     @Override
     public void react(Command command, Object object) {
         switch (command) {
+            case SET_GAME_MODE -> setGameMode((GameSettings.Difficulty) object);
+            case SET_BOARD_SIZE -> setBoardSize((GameSettings.BoardSize) object);
+
             case HOVERING -> controller.react(Command.HOVERING, object);
             case NOT_HOVERING -> controller.react(Command.NOT_HOVERING, object);
+        }
+    }
+
+    private void setGameMode(GameSettings.Difficulty difficulty) {
+        difficultyEasyButton.deactivate();
+        difficultyMediumButton.deactivate();
+        difficultyHardButton.deactivate();
+
+        switch (difficulty) {
+            case EASY -> difficultyEasyButton.activate();
+            case MEDIUM -> difficultyMediumButton.activate();
+            case HARD -> difficultyHardButton.activate();
+        }
+    }
+
+    private void setBoardSize(GameSettings.BoardSize boardSize) {
+        boardSize3x3.deactivate();
+        boardSize3x5.deactivate();
+        boardSize5x5.deactivate();
+
+        switch (boardSize) {
+            case SMALL_3X3 -> boardSize3x3.activate();
+            case MEDIUM_3X5 -> boardSize3x5.activate();
+            case LARGE_5X5 -> boardSize5x5.activate();
         }
     }
 }
