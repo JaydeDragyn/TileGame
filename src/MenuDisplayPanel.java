@@ -31,8 +31,19 @@ public class MenuDisplayPanel extends DisplayPanel {
         backButton = new ActionButton(ButtonID.BUTTON_BACK, new Point(187, 425), controller);
         quitButton = new ActionButton(ButtonID.BUTTON_QUIT, new Point(350, 425), controller);
 
-        addElement(new TextLabel("Settings", new Point(127, 0), TextLabel.FontSize.LARGE, new Color(0.5f, 1.0f, 0.5f)));
+        addElement(new TextLabel("Settings Menu", new Point(127, 0), TextLabel.FontSize.LARGE, new Color(0.5f, 1.0f, 0.5f)));
+        addElement(new TextLabel("Difficulty:", new Point(25, 55), TextLabel.FontSize.MEDIUM, Color.GREEN));
+        addElement(new TextLabel("Easy", new Point(88,100), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
+        addElement(new TextLabel("Medium", new Point(88, 200), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
+        addElement(new TextLabel("Hard", new Point(88, 300), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
+        addElement(new TextLabel("Board Size", new Point(300, 55), TextLabel.FontSize.MEDIUM, Color.GREEN));
+        addElement(new TextLabel("3x3", new Point(363, 100), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
+        addElement(new TextLabel("3x5", new Point(363, 200), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
+        addElement(new TextLabel("5x5", new Point(363, 300), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
 
+        addElement(new StaticImage("Size_3x3", new Point(363, 130)));
+        addElement(new StaticImage("Size_3x5", new Point(363, 230)));
+        addElement(new StaticImage("Size_5x5", new Point(363, 330)));
 
         addElement(difficultyEasyButton);
         addElement(difficultyMediumButton);
