@@ -10,8 +10,8 @@ public class TileGameController extends Controller {
     }
 
     public void initialize() {
-        tileGameDisplayPanel = new TileGameDisplayPanel();
-        tileGameDisplayPanel.initialize(this);
+        tileGameDisplayPanel = new TileGameDisplayPanel(this);
+        tileGameDisplayPanel.initialize();
 
         menuController = new MenuController(this);
         menuController.initialize();

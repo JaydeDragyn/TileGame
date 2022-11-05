@@ -6,8 +6,8 @@ public class HelpController extends Controller {
 
     @Override
     public void initialize() {
-        displayPanel = new HelpDisplayPanel();
-        displayPanel.initialize(this);
+        displayPanel = new HelpDisplayPanel(this);
+        displayPanel.initialize();
     }
 
     @Override

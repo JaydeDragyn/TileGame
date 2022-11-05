@@ -6,8 +6,8 @@ public class GameController extends Controller {
 
     @Override
     public void initialize() {
-        displayPanel = new GameDisplayPanel();
-        displayPanel.initialize(this);
+        displayPanel = new GameDisplayPanel(this);
+        displayPanel.initialize();
     }
 
     @Override

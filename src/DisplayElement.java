@@ -6,20 +6,19 @@ import java.io.InputStream;
 
 public abstract class DisplayElement {
 
-    protected ElementID elementID;
+    protected String name;
     protected Point location;
     protected Dimension size;
-    protected boolean isInteractive;
+    protected boolean interactive;
 
-    public DisplayElement(ElementID elementID, Point location, Dimension size) {
-        this.elementID = elementID;
+    public DisplayElement(String name, Point location) {
+        this.name = name;
         this.location = location;
-        this.size = size;
-        this.isInteractive = true;
+        this.interactive = true;
     }
 
-    public ElementID getID() {
-        return elementID;
+    public String getName() {
+        return name;
     }
 
     public Point getLocation() {
@@ -31,7 +30,7 @@ public abstract class DisplayElement {
     }
 
     public boolean isInteractive() {
-        return isInteractive;
+        return interactive;
     }
 
     public abstract BufferedImage getTexture();

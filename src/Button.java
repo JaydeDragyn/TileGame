@@ -1,37 +1,20 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class Button extends DisplayElement {
+public abstract class Button extends DisplayElement {
 
-    private final BufferedImage buttonTexture;
-    private final BufferedImage buttonTextureHover;
-    private final BufferedImage buttonTexturePressed;
-    private final BufferedImage buttonTextureDisabled;
-    private boolean enabled;
-    private boolean hovered;
-    private boolean pressed;
-    private Command command;
-    private Controller controller;
+    protected boolean enabled;
+    protected boolean hovered;
+    protected boolean pressed;
+    protected Command command;
+    protected Controller controller;
 
-    public Button(ElementID elementID, Point location, Dimension size, String buttonName, Command command, Controller controller) {
-        super(elementID, location, size);
-        buttonTexture = loadAsset("buttons/" + buttonName + "Button.png");
-        buttonTextureHover = loadAsset("buttons/" + buttonName + "ButtonHover.png");
-        buttonTexturePressed = loadAsset("buttons/" + buttonName + "ButtonPressed.png");
-        buttonTextureDisabled = loadAsset("buttons/" + buttonName + "ButtonDisabled.png");
+    public Button(String buttonName, Point location, Command command, Controller controller) {
+        super(buttonName, location);
         enabled = true;
         hovered = false;
         pressed = false;
         this.command = command;
         this.controller = controller;
-    }
-
-    @Override
-    public BufferedImage getTexture() {
-        if (!enabled) { return buttonTextureDisabled; }
-        if (!hovered && !pressed) { return buttonTexture; }
-        if (hovered && !pressed) { return buttonTextureHover; }
-        return buttonTexturePressed;
     }
 
     public Command getCommand() {

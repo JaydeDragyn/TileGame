@@ -6,8 +6,8 @@ public class MenuController extends Controller {
 
     @Override
     public void initialize() {
-        displayPanel = new MenuDisplayPanel();
-        displayPanel.initialize(this);
+        displayPanel = new MenuDisplayPanel(this);
+        displayPanel.initialize();
     }
 
     @Override

@@ -1,18 +1,36 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class DisplayPanel extends DisplayElement {
 
+    protected Controller controller;
     protected ArrayList<DisplayElement> elements;
     protected DisplayElement lastElementInteracted;
+    protected BufferedImage texture;
+    protected Graphics2D pen;
 
-    public DisplayPanel(ElementID elementID, Point location, Dimension size) {
-        super(elementID, location, size);
+    public DisplayPanel(String name, Point location, Controller controller) {
+        super(name, location);
+        this.controller = controller;
         elements = new ArrayList<>();
         lastElementInteracted = null;
+
+        texture = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
+        pen = texture.createGraphics();
     }
 
-    public abstract void initialize(Controller controller);
+    public abstract void initialize();
+
+    @Override
+    public BufferedImage getTexture() {
+        pen.setColor(Color.BLACK);
+        pen.fillRect(0, 0, size.width, size.height);
+        for (DisplayElement element : elements) {
+            drawElement(pen, element);
+        }
+        return texture;
+    }
 
     @Override
     public void mouseMovedOn(Point location) {
