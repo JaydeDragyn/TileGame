@@ -11,6 +11,7 @@ public class MenuDisplayPanel extends DisplayPanel {
     private RadioButton boardSize5x5;
     private ActionButton backButton;
     private ArrayList<DisplayElement> menuElements;
+    private ArrayList<DisplayElement> confirmStartElements;
     private ArrayList<DisplayElement> confirmQuitElements;
 
     public MenuDisplayPanel(Controller controller) {
@@ -20,6 +21,67 @@ public class MenuDisplayPanel extends DisplayPanel {
 
     @Override
     public void initialize() {
+        initializeMenuElements();
+        initializeConfirmStartElements();
+        initializeConfirmQuitElements();
+
+        backButton.disable();
+        elements = menuElements;
+    }
+
+    @Override
+    public void react(Command command, Object object) {
+        switch (command) {
+            case SET_GAME_MODE -> setGameMode((GameSettings.Difficulty) object);
+            case SET_BOARD_SIZE -> setBoardSize((GameSettings.BoardSize) object);
+
+            case HOVERING -> controller.react(Command.HOVERING, object);
+            case NOT_HOVERING -> controller.react(Command.NOT_HOVERING, object);
+
+            case CONFIRM_START -> elements = confirmStartElements;
+            case CONFIRM_QUIT -> elements = confirmQuitElements;
+            case NO_START, NO_QUIT, RESET -> elements = menuElements;
+
+            case GAME_STARTED -> gameStarted();
+            case GAME_ENDED -> gameEnded();
+        }
+    }
+
+    private void setGameMode(GameSettings.Difficulty difficulty) {
+        difficultyEasyButton.deactivate();
+        difficultyMediumButton.deactivate();
+        difficultyHardButton.deactivate();
+
+        switch (difficulty) {
+            case EASY -> difficultyEasyButton.activate();
+            case MEDIUM -> difficultyMediumButton.activate();
+            case HARD -> difficultyHardButton.activate();
+        }
+    }
+
+    private void setBoardSize(GameSettings.BoardSize boardSize) {
+        boardSize3x3.deactivate();
+        boardSize3x5.deactivate();
+        boardSize5x5.deactivate();
+
+        switch (boardSize) {
+            case SMALL_3X3 -> boardSize3x3.activate();
+            case MEDIUM_3X5 -> boardSize3x5.activate();
+            case LARGE_5X5 -> boardSize5x5.activate();
+        }
+    }
+
+    private void gameStarted() {
+        elements = menuElements;
+        backButton.enable();
+    }
+
+    private void gameEnded() {
+        elements = menuElements;
+        backButton.disable();
+    }
+
+    private void initializeMenuElements() {
         addElement(new TextLabel("Settings Menu", new Point(127, 0), TextLabel.FontSize.LARGE, new Color(0.5f, 1.0f, 0.5f)));
         addElement(new TextLabel("Difficulty:", new Point(25, 55), TextLabel.FontSize.MEDIUM, Color.GREEN));
         addElement(new TextLabel("Easy", new Point(88,100), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
@@ -53,51 +115,21 @@ public class MenuDisplayPanel extends DisplayPanel {
         addElement(backButton = new ActionButton(ButtonID.BUTTON_BACK, new Point(187, 425), controller));
         addElement(new ActionButton(ButtonID.BUTTON_QUIT, new Point(350, 425), controller));
         menuElements = elements;
+    }
 
+    private void initializeConfirmStartElements() {
+        elements = new ArrayList<>();
+        addElement(new StaticImage("GameInProgressPrompt", new Point(100, 175)));
+        addElement(new ActionButton(ButtonID.BUTTON_YES_START, new Point(120, 260), controller));
+        addElement(new ActionButton(ButtonID.BUTTON_NO_START, new Point(255, 260), controller));
+        confirmStartElements = elements;
+    }
+
+    private void initializeConfirmQuitElements() {
         elements = new ArrayList<>();
         addElement(new StaticImage("ConfirmQuitPrompt", new Point(100, 175)));
-        addElement(new ActionButton(ButtonID.BUTTON_YES, new Point(120, 260), controller));
-        addElement(new ActionButton(ButtonID.BUTTON_NO, new Point(255, 260), controller));
+        addElement(new ActionButton(ButtonID.BUTTON_YES_QUIT, new Point(120, 260), controller));
+        addElement(new ActionButton(ButtonID.BUTTON_NO_QUIT, new Point(255, 260), controller));
         confirmQuitElements = elements;
-
-        elements = menuElements;
-    }
-
-    @Override
-    public void react(Command command, Object object) {
-        switch (command) {
-            case SET_GAME_MODE -> setGameMode((GameSettings.Difficulty) object);
-            case SET_BOARD_SIZE -> setBoardSize((GameSettings.BoardSize) object);
-
-            case HOVERING -> controller.react(Command.HOVERING, object);
-            case NOT_HOVERING -> controller.react(Command.NOT_HOVERING, object);
-
-            case CONFIRM_QUIT -> elements = confirmQuitElements;
-            case NO_QUIT, RESET -> elements = menuElements;
-        }
-    }
-
-    private void setGameMode(GameSettings.Difficulty difficulty) {
-        difficultyEasyButton.deactivate();
-        difficultyMediumButton.deactivate();
-        difficultyHardButton.deactivate();
-
-        switch (difficulty) {
-            case EASY -> difficultyEasyButton.activate();
-            case MEDIUM -> difficultyMediumButton.activate();
-            case HARD -> difficultyHardButton.activate();
-        }
-    }
-
-    private void setBoardSize(GameSettings.BoardSize boardSize) {
-        boardSize3x3.deactivate();
-        boardSize3x5.deactivate();
-        boardSize5x5.deactivate();
-
-        switch (boardSize) {
-            case SMALL_3X3 -> boardSize3x3.activate();
-            case MEDIUM_3X5 -> boardSize3x5.activate();
-            case LARGE_5X5 -> boardSize5x5.activate();
-        }
     }
 }

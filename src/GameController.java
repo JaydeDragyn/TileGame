@@ -23,8 +23,9 @@ public class GameController extends Controller {
     }
 
     private void startNewGame(GameSettings gameSettings) {
+        controller.react(Command.GAME_STARTED, null);
         System.out.println("Starting new game with settings:");
-        System.out.println(gameSettings.getProgression());
-        System.out.println(gameSettings.getBoardSize());
+        System.out.println(gameSettings.progression());
+        System.out.println(gameSettings.boardSize());
     }
 }

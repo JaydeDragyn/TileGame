@@ -48,6 +48,9 @@ public class TileGameController extends Controller {
 
             case START_NEW_GAME -> startNewGame((GameSettings) object);
             case RETURN_TO_GAME -> showGame();
+
+            case GAME_STARTED -> gameStarted();
+            case GAME_ENDED -> gameEnded();
         }
     }
 
@@ -69,4 +72,15 @@ public class TileGameController extends Controller {
         gameController.react(Command.START_NEW_GAME, gameSettings);
         showGame();
     }
+
+    private void gameStarted() {
+        menuController.react(Command.GAME_STARTED, null);
+        helpController.react(Command.GAME_STARTED, null);
+    }
+
+    private void gameEnded() {
+        menuController.react(Command.GAME_ENDED, null);
+        helpController.react(Command.GAME_ENDED, null);
+    }
+
 }

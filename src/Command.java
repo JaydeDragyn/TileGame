@@ -3,6 +3,10 @@ public enum Command {
     HOVERING,
     NOT_HOVERING,
 
+    // Global events
+    GAME_STARTED,
+    GAME_ENDED,
+
     // Main interface interactions
     SHOW_MENU,
     SHOW_HELP,
@@ -25,6 +29,11 @@ public enum Command {
     START_NEW_GAME,
     RETURN_TO_GAME,
     QUIT_GAME,
+
+    // Confirm start new game
+    CONFIRM_START,
+    YES_START,
+    NO_START,
 
     // Confirm quit
     CONFIRM_QUIT,

@@ -7,6 +7,7 @@ public class MenuState {
     private ArrayList<TileColor> hardProgression;
     private ArrayList<TileColor> currentProgression;
     private GameSettings.BoardSize boardSize;
+    private boolean gameInProgress;
 
     public void initialize() {
         easyProgression = new ArrayList<>();
@@ -25,6 +26,8 @@ public class MenuState {
         hardProgression.add(TileColor.GREEN);
         hardProgression.add(TileColor.BLUE);
         hardProgression.add(TileColor.PURPLE);
+
+        gameInProgress = false;
     }
 
     public void setGameMode(GameSettings.Difficulty difficulty) {
@@ -53,6 +56,18 @@ public class MenuState {
 
     public GameSettings getNewGameSettings() {
         return new GameSettings(currentProgression, boardSize);
+    }
+
+    public void gameStarted() {
+        gameInProgress = true;
+    }
+
+    public void gameEnded() {
+        gameInProgress = false;
+    }
+
+    public boolean isGameInProgress() {
+        return gameInProgress;
     }
 
     private ArrayList<TileColor> getProgression(GameSettings.Difficulty difficulty) {
