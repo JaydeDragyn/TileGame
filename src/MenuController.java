@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+
 public class MenuController extends Controller {
 
     private MenuState menuState;
+    private ArrayList<DisplayElement> tempElementList;
 
     public MenuController(Controller controller) {
         super(controller);
@@ -39,7 +42,11 @@ public class MenuController extends Controller {
             // Action Buttons
             case START_NEW_GAME -> controller.react(Command.START_NEW_GAME, menuState.getNewGameSettings());
             case RETURN_TO_GAME -> controller.react(Command.RETURN_TO_GAME, null);
-            case QUIT_GAME -> System.exit(0);
+            case QUIT_GAME -> displayPanel.react(Command.CONFIRM_QUIT, null);
+
+            // Quit confirmation
+            case YES_QUIT -> System.exit(0);
+            case NO_QUIT -> displayPanel.react(Command.NO_QUIT, null);
         }
     }
 
@@ -65,5 +72,13 @@ public class MenuController extends Controller {
         TileColor newColor = menuState.cycleProgressionTile(difficulty, Integer.parseInt(tile.getName()));
         tile.setColor(newColor);
         controller.react(Command.HOVERING, tile);
+    }
+
+    private void confirmQuit() {
+
+    }
+
+    private void notQuitting() {
+
     }
 }

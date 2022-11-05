@@ -7,6 +7,8 @@ public enum ButtonID {
     BUTTON_QUIT("Quit", "Quit the game", Command.QUIT_GAME),
     BUTTON_PREV("Prev", "Show the previous info page", Command.PREV_HELP_PAGE),
     BUTTON_NEXT("Next", "Show the next info page", Command.NEXT_HELP_PAGE),
+    BUTTON_YES("Yes", "Quit the game", Command.YES_QUIT),
+    BUTTON_NO("No", "Return to the menu", Command.NO_QUIT),
 
     // Radio buttons
     BUTTON_DIFFICULTY_EASY("Difficulty Easy", "Set difficulty to Easy", Command.GAME_MODE_EASY),

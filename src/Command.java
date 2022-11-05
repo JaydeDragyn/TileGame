@@ -1,14 +1,14 @@
 public enum Command {
-    SHOW_MENU,
-    SHOW_HELP,
-    START_NEW_GAME,
-    RETURN_TO_GAME,
-    QUIT_GAME,
-    SET_STATE,
+    // General moving mouse around
     HOVERING,
     NOT_HOVERING,
-    PREV_HELP_PAGE,
-    NEXT_HELP_PAGE,
+
+    // Main interface interactions
+    SHOW_MENU,
+    SHOW_HELP,
+    SET_STATE,
+
+    // Settings Menu interactions
     SET_GAME_MODE,
     GAME_MODE_EASY,
     GAME_MODE_MEDIUM,
@@ -20,4 +20,17 @@ public enum Command {
     CYCLE_EASY_TILE,
     CYCLE_MEDIUM_TILE,
     CYCLE_HARD_TILE,
+
+    START_NEW_GAME,
+    RETURN_TO_GAME,
+    QUIT_GAME,
+
+    // Confirm quit
+    CONFIRM_QUIT,
+    YES_QUIT,
+    NO_QUIT,
+
+    // Help screen interactions
+    PREV_HELP_PAGE,
+    NEXT_HELP_PAGE,
 }

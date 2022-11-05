@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 public class MenuDisplayPanel extends DisplayPanel {
 
@@ -8,9 +9,9 @@ public class MenuDisplayPanel extends DisplayPanel {
     private RadioButton boardSize3x3;
     private RadioButton boardSize3x5;
     private RadioButton boardSize5x5;
-    private ActionButton startButton;
     private ActionButton backButton;
-    private ActionButton quitButton;
+    private ArrayList<DisplayElement> menuElements;
+    private ArrayList<DisplayElement> confirmQuitElements;
 
     public MenuDisplayPanel(Controller controller) {
         super(DisplayPanelID.MENU, new Point(150,150), controller);
@@ -27,9 +28,7 @@ public class MenuDisplayPanel extends DisplayPanel {
         boardSize3x5 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_3X5, new Point(300, 210), controller);
         boardSize5x5 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_5X5, new Point(300, 310), controller);
 
-        startButton = new ActionButton(ButtonID.BUTTON_START, new Point(25, 425), controller);
         backButton = new ActionButton(ButtonID.BUTTON_BACK, new Point(187, 425), controller);
-        quitButton = new ActionButton(ButtonID.BUTTON_QUIT, new Point(350, 425), controller);
 
         addElement(new TextLabel("Settings Menu", new Point(127, 0), TextLabel.FontSize.LARGE, new Color(0.5f, 1.0f, 0.5f)));
         addElement(new TextLabel("Difficulty:", new Point(25, 55), TextLabel.FontSize.MEDIUM, Color.GREEN));
@@ -65,9 +64,20 @@ public class MenuDisplayPanel extends DisplayPanel {
         addElement(boardSize3x3);
         addElement(boardSize3x5);
         addElement(boardSize5x5);
-        addElement(startButton);
+        addElement(new ActionButton(ButtonID.BUTTON_START, new Point(25, 425), controller));
         addElement(backButton);
-        addElement(quitButton);
+        addElement(new ActionButton(ButtonID.BUTTON_QUIT, new Point(350, 425), controller));
+
+        menuElements = elements;
+
+        elements = new ArrayList<>();
+        addElement(new StaticImage("ConfirmQuitPrompt", new Point(100, 175)));
+        addElement(new ActionButton(ButtonID.BUTTON_YES, new Point(120, 260), controller));
+        addElement(new ActionButton(ButtonID.BUTTON_NO, new Point(255, 260), controller));
+
+        confirmQuitElements = elements;
+
+        elements = menuElements;
     }
 
     @Override
@@ -78,6 +88,9 @@ public class MenuDisplayPanel extends DisplayPanel {
 
             case HOVERING -> controller.react(Command.HOVERING, object);
             case NOT_HOVERING -> controller.react(Command.NOT_HOVERING, object);
+
+            case CONFIRM_QUIT -> elements = confirmQuitElements;
+            case NO_QUIT -> elements = menuElements;
         }
     }
 
