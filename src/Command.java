@@ -7,6 +7,7 @@ public enum Command {
     SHOW_MENU,
     SHOW_HELP,
     SET_STATE,
+    RESET,
 
     // Settings Menu interactions
     SET_GAME_MODE,

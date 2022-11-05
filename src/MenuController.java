@@ -47,6 +47,7 @@ public class MenuController extends Controller {
             // Quit confirmation
             case YES_QUIT -> System.exit(0);
             case NO_QUIT -> displayPanel.react(Command.NO_QUIT, null);
+
         }
     }
 
@@ -54,7 +55,7 @@ public class MenuController extends Controller {
     public void react(Command command, Object object) {
         switch (command) {
             case HOVERING, NOT_HOVERING -> controller.react(command, object);
-
+            case RESET -> displayPanel.react(Command.RESET, null);
         }
     }
 

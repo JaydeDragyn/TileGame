@@ -57,6 +57,8 @@ public class TileGameController extends Controller {
 
     private void showHelp() {
         displayPanel.react(Command.SET_STATE, helpController.getDisplayPanel());
+        // if user was in Quit or New Game confirmation and clicked Help
+        menuController.react(Command.RESET, null);
     }
 
     private void showGame() {

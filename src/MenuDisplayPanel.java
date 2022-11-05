@@ -20,16 +20,6 @@ public class MenuDisplayPanel extends DisplayPanel {
 
     @Override
     public void initialize() {
-        difficultyEasyButton = new RadioButton(ButtonID.BUTTON_DIFFICULTY_EASY, new Point(25, 110), controller);
-        difficultyMediumButton = new RadioButton(ButtonID.BUTTON_DIFFICULTY_MEDIUM, new Point(25, 210), controller);
-        difficultyHardButton = new RadioButton(ButtonID.BUTTON_DIFFICULTY_HARD, new Point(25, 310), controller);
-
-        boardSize3x3 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_3X3, new Point(300, 110), controller);
-        boardSize3x5 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_3X5, new Point(300, 210), controller);
-        boardSize5x5 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_5X5, new Point(300, 310), controller);
-
-        backButton = new ActionButton(ButtonID.BUTTON_BACK, new Point(187, 425), controller);
-
         addElement(new TextLabel("Settings Menu", new Point(127, 0), TextLabel.FontSize.LARGE, new Color(0.5f, 1.0f, 0.5f)));
         addElement(new TextLabel("Difficulty:", new Point(25, 55), TextLabel.FontSize.MEDIUM, Color.GREEN));
         addElement(new TextLabel("Easy", new Point(88,100), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
@@ -39,42 +29,35 @@ public class MenuDisplayPanel extends DisplayPanel {
         addElement(new TextLabel("3x3", new Point(363, 100), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
         addElement(new TextLabel("3x5", new Point(363, 200), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
         addElement(new TextLabel("5x5", new Point(363, 300), TextLabel.FontSize.SMALL, Color.LIGHT_GRAY));
-
         addElement(new StaticImage("Size_3x3", new Point(363, 130)));
         addElement(new StaticImage("Size_3x5", new Point(363, 230)));
         addElement(new StaticImage("Size_5x5", new Point(363, 330)));
-
         addElement(new Tile(ButtonID.TILE_MENU_EASY_0, new Point(88, 130), TileColor.RED, Tile.Size.SMALL, controller));
         addElement(new Tile(ButtonID.TILE_MENU_EASY_1, new Point(143, 130), TileColor.WHITE, Tile.Size.SMALL, controller));
-
         addElement(new Tile(ButtonID.TILE_MENU_MEDIUM_0, new Point(88, 230), TileColor.CYAN, Tile.Size.SMALL, controller));
         addElement(new Tile(ButtonID.TILE_MENU_MEDIUM_1, new Point(143, 230), TileColor.MAGENTA, Tile.Size.SMALL, controller));
         addElement(new Tile(ButtonID.TILE_MENU_MEDIUM_2, new Point(198, 230), TileColor.YELLOW, Tile.Size.SMALL, controller));
-
         addElement(new Tile(ButtonID.TILE_MENU_HARD_0, new Point(88, 330), TileColor.RED, Tile.Size.SMALL, controller));
         addElement(new Tile(ButtonID.TILE_MENU_HARD_1, new Point(143, 330), TileColor.ORANGE, Tile.Size.SMALL, controller));
         addElement(new Tile(ButtonID.TILE_MENU_HARD_2, new Point(198, 330), TileColor.YELLOW, Tile.Size.SMALL, controller));
         addElement(new Tile(ButtonID.TILE_MENU_HARD_3, new Point(108, 360), TileColor.GREEN, Tile.Size.SMALL, controller));
         addElement(new Tile(ButtonID.TILE_MENU_HARD_4, new Point(163, 360), TileColor.BLUE, Tile.Size.SMALL, controller));
         addElement(new Tile(ButtonID.TILE_MENU_HARD_5, new Point(218, 360), TileColor.PURPLE, Tile.Size.SMALL, controller));
-
-        addElement(difficultyEasyButton);
-        addElement(difficultyMediumButton);
-        addElement(difficultyHardButton);
-        addElement(boardSize3x3);
-        addElement(boardSize3x5);
-        addElement(boardSize5x5);
+        addElement(difficultyEasyButton = new RadioButton(ButtonID.BUTTON_DIFFICULTY_EASY, new Point(25, 110), controller));
+        addElement(difficultyMediumButton = new RadioButton(ButtonID.BUTTON_DIFFICULTY_MEDIUM, new Point(25, 210), controller));
+        addElement(difficultyHardButton = new RadioButton(ButtonID.BUTTON_DIFFICULTY_HARD, new Point(25, 310), controller));
+        addElement(boardSize3x3 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_3X3, new Point(300, 110), controller));
+        addElement(boardSize3x5 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_3X5, new Point(300, 210), controller));
+        addElement(boardSize5x5 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_5X5, new Point(300, 310), controller));
         addElement(new ActionButton(ButtonID.BUTTON_START, new Point(25, 425), controller));
-        addElement(backButton);
+        addElement(backButton = new ActionButton(ButtonID.BUTTON_BACK, new Point(187, 425), controller));
         addElement(new ActionButton(ButtonID.BUTTON_QUIT, new Point(350, 425), controller));
-
         menuElements = elements;
 
         elements = new ArrayList<>();
         addElement(new StaticImage("ConfirmQuitPrompt", new Point(100, 175)));
         addElement(new ActionButton(ButtonID.BUTTON_YES, new Point(120, 260), controller));
         addElement(new ActionButton(ButtonID.BUTTON_NO, new Point(255, 260), controller));
-
         confirmQuitElements = elements;
 
         elements = menuElements;
@@ -90,7 +73,7 @@ public class MenuDisplayPanel extends DisplayPanel {
             case NOT_HOVERING -> controller.react(Command.NOT_HOVERING, object);
 
             case CONFIRM_QUIT -> elements = confirmQuitElements;
-            case NO_QUIT -> elements = menuElements;
+            case NO_QUIT, RESET -> elements = menuElements;
         }
     }
 
