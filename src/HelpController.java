@@ -1,24 +1,43 @@
 public class HelpController extends Controller {
 
-    public HelpController(Controller controller) {
-        super(controller);
+    private final TileGameController tileGameController;
+    private DisplayPanel helpDisplayPanel;
+
+    public HelpController(TileGameController tileGameController) {
+        this.tileGameController = tileGameController;
+    }
+
+    @Override
+    public DisplayPanel getDisplayPanel() {
+        return helpDisplayPanel;
     }
 
     @Override
     public void initialize() {
-        displayPanel = new HelpDisplayPanel(this);
-        displayPanel.initialize();
+        helpDisplayPanel = new HelpDisplayPanel(this);
+        helpDisplayPanel.initialize();
     }
 
     @Override
     public void react(Button button) {
-        controller.react(button);
+        tileGameController.react(button);
     }
 
     @Override
-    public void react(Command command, Object object) {
-        switch (command) {
-            case HOVERING, NOT_HOVERING -> controller.react(command, object);
-        }
+    public void hover(Button button) {
+        tileGameController.hover(button);
+    }
+
+    @Override
+    public void unhover() {
+        tileGameController.unhover();
+    }
+
+    public void gameStarted() {
+
+    }
+
+    public void gameEnded() {
+
     }
 }

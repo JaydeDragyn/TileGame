@@ -24,8 +24,6 @@ public abstract class DisplayPanel extends DisplayElement {
 
     public abstract void initialize();
 
-    public abstract void react(Command command, Object object);
-
     public DisplayPanelID getDisplayPanelID() {
         return displayPanelID;
     }

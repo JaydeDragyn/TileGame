@@ -1,21 +1,28 @@
 public class MenuController extends Controller {
 
+    private final TileGameController tileGameController;
+    private MenuDisplayPanel menuDisplayPanel;
     private MenuState menuState;
 
-    public MenuController(Controller controller) {
-        super(controller);
+    public MenuController(TileGameController tileGameController) {
+        this.tileGameController = tileGameController;
     }
 
     @Override
     public void initialize() {
-        displayPanel = new MenuDisplayPanel(this);
-        displayPanel.initialize();
+        menuDisplayPanel = new MenuDisplayPanel(this);
+        menuDisplayPanel.initialize();
 
         menuState = new MenuState();
         menuState.initialize();
 
         setGameMode(GameSettings.Difficulty.EASY);
         setBoardSize(GameSettings.BoardSize.SMALL_3X3);
+    }
+
+    @Override
+    public DisplayPanel getDisplayPanel() {
+        return menuDisplayPanel;
     }
 
     @Override
@@ -38,65 +45,70 @@ public class MenuController extends Controller {
 
             // Action Buttons
             case START_NEW_GAME -> startNewGame();
-            case RETURN_TO_GAME -> controller.react(Command.RETURN_TO_GAME, null);
-            case QUIT_GAME -> displayPanel.react(Command.CONFIRM_QUIT, null);
+            case RETURN_TO_GAME -> tileGameController.showGame();
+            case QUIT_GAME -> menuDisplayPanel.confirmQuit();
 
-            // Start new game confirmation (if a game is in progress
-            case YES_START -> controller.react(Command.START_NEW_GAME, menuState.getNewGameSettings());
-            case NO_START -> displayPanel.react(Command.RESET, null);
-
-            // Quit confirmation
+            // Confirmations
+            case YES_START -> tileGameController.startNewGame(menuState.getNewGameSettings());
             case YES_QUIT -> System.exit(0);
-            case NO_QUIT -> displayPanel.react(Command.NO_QUIT, null);
+            case NO_START, NO_QUIT -> menuDisplayPanel.reset();
         }
     }
 
     @Override
-    public void react(Command command, Object object) {
-        switch (command) {
-            // Mouse movement
-            case HOVERING, NOT_HOVERING -> controller.react(command, object);
-
-            // Was in confirm dialog, now back to menu
-            case RESET -> displayPanel.react(Command.RESET, null);
-
-            // Program events
-            case GAME_STARTED -> gameStarted();
-            case GAME_ENDED -> gameEnded();
+    public void hover(Button button) {
+        switch (button.getCommand()) {
+            case CYCLE_EASY_TILE ->
+                tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.EASY));
+            case CYCLE_MEDIUM_TILE ->
+                tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.MEDIUM));
+            case CYCLE_HARD_TILE ->
+                tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.HARD));
+            default ->
+                tileGameController.showHoverInfo(button.getHoverText(), null);
         }
     }
 
+    @Override
+    public void unhover() {
+        tileGameController.unhover();
+    }
+
+    public void reset() {
+        menuDisplayPanel.reset();
+    }
+
     private void setGameMode(GameSettings.Difficulty difficulty) {
-        displayPanel.react(Command.SET_GAME_MODE, difficulty);
         menuState.setGameMode(difficulty);
+        menuDisplayPanel.setGameMode(difficulty);
     }
 
     private void setBoardSize(GameSettings.BoardSize boardSize) {
-        displayPanel.react(Command.SET_BOARD_SIZE, boardSize);
         menuState.setBoardSize(boardSize);
+        menuDisplayPanel.setBoardSize(boardSize);
     }
 
     private void cycleProgressionTile(Tile tile, GameSettings.Difficulty difficulty) {
         TileColor newColor = menuState.cycleProgressionTile(difficulty, Integer.parseInt(tile.getName()));
         tile.setColor(newColor);
-        controller.react(Command.HOVERING, tile);
+        hover(tile);
     }
 
     private void startNewGame() {
         if (menuState.isGameInProgress()) {
-            displayPanel.react(Command.CONFIRM_START, null);
+            menuDisplayPanel.confirmStartNewGame();
         } else {
-            controller.react(Command.START_NEW_GAME, menuState.getNewGameSettings());
+            tileGameController.startNewGame(menuState.getNewGameSettings());
         }
     }
 
-    private void gameStarted() {
+    public void gameStarted() {
         menuState.gameStarted();
-        displayPanel.react(Command.GAME_STARTED, null);
+        menuDisplayPanel.gameStarted();
     }
 
-    private void gameEnded() {
+    public void gameEnded() {
         menuState.gameEnded();
-        displayPanel.react(Command.GAME_ENDED, null);
+        menuDisplayPanel.gameEnded();
     }
 }

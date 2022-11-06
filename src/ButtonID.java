@@ -13,12 +13,12 @@ public enum ButtonID {
     BUTTON_NO_QUIT("No", "Return to the menu", Command.NO_QUIT),
 
     // Radio buttons
-    BUTTON_DIFFICULTY_EASY("Difficulty Easy", "Set difficulty to Easy", Command.GAME_MODE_EASY),
-    BUTTON_DIFFICULTY_MEDIUM("Difficulty Medium", "Set difficulty to Medium", Command.GAME_MODE_MEDIUM),
-    BUTTON_DIFFICULTY_HARD("Difficulty Hard", "Set difficulty to Hard", Command.GAME_MODE_HARD),
-    BUTTON_BOARD_SIZE_3X3("Board Size 3x3", "Set board size to 3x3", Command.BOARD_SIZE_3X3),
-    BUTTON_BOARD_SIZE_3X5("Board Size 3x5", "Set board size to 3x5", Command.BOARD_SIZE_3X5),
-    BUTTON_BOARD_SIZE_5X5("Board Size 5x5", "Set board size to 5x5", Command.BOARD_SIZE_5X5),
+    BUTTON_DIFFICULTY_EASY("Easy", "Set difficulty to Easy", Command.GAME_MODE_EASY),
+    BUTTON_DIFFICULTY_MEDIUM("Medium", "Set difficulty to Medium", Command.GAME_MODE_MEDIUM),
+    BUTTON_DIFFICULTY_HARD("Hard", "Set difficulty to Hard", Command.GAME_MODE_HARD),
+    BUTTON_BOARD_SIZE_3X3("3x3", "Set board size to 3x3", Command.BOARD_SIZE_3X3),
+    BUTTON_BOARD_SIZE_3X5("3x5", "Set board size to 3x5", Command.BOARD_SIZE_3X5),
+    BUTTON_BOARD_SIZE_5X5("5x5", "Set board size to 5x5", Command.BOARD_SIZE_5X5),
 
     // Tiles
     TILE_MENU_EASY_0("0", "Change starting color of easy progression", Command.CYCLE_EASY_TILE),

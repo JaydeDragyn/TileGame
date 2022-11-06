@@ -70,7 +70,7 @@ public class MenuState {
         return gameInProgress;
     }
 
-    private ArrayList<TileColor> getProgression(GameSettings.Difficulty difficulty) {
+    public ArrayList<TileColor> getProgression(GameSettings.Difficulty difficulty) {
         return switch (difficulty) {
             case EASY -> easyProgression;
             case MEDIUM -> mediumProgression;

@@ -12,8 +12,4 @@ public class GameDisplayPanel extends DisplayPanel {
         addElement(new StaticImage("Tile Game", new Point(75, 200)));
     }
 
-    @Override
-    public void react(Command command, Object object) {
-
-    }
 }

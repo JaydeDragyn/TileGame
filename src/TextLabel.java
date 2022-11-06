@@ -23,7 +23,6 @@ public class TextLabel extends StaticDisplayElement {
     }
 
     private final BufferedImage texture;
-    private final String text;
 
     public TextLabel(String text, Point location, FontSize fontSize, Color color) {
         super(location);
@@ -36,7 +35,6 @@ public class TextLabel extends StaticDisplayElement {
             default -> font = fontSmall;
         }
 
-        this.text = text;
         FontMetrics fontMetrics = new Canvas().getFontMetrics(font);
         this.size = new Dimension(fontMetrics.stringWidth(text)+1, fontMetrics.getHeight());
 
@@ -48,10 +46,6 @@ public class TextLabel extends StaticDisplayElement {
         pen.drawString(text, 0, fontMetrics.getAscent());
 
         pen.dispose();
-    }
-
-    public String getText() {
-        return text;
     }
 
     public BufferedImage getTexture() {

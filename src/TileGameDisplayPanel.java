@@ -1,12 +1,13 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class TileGameDisplayPanel extends DisplayPanel {
 
     private Button menuButton;
     private Button helpButton;
     private DisplayPanel centerDisplayPanel;
-    private DisplayPanel infoDisplayPanel;
+    private InfoDisplayPanel infoDisplayPanel;
 
     public TileGameDisplayPanel(Controller controller) {
         super(DisplayPanelID.TILE_GAME, new Point(0,0), controller);
@@ -29,15 +30,7 @@ public class TileGameDisplayPanel extends DisplayPanel {
         addElement(infoDisplayPanel);
     }
 
-    public void react (Command command, Object object) {
-        switch (command) {
-            case SET_STATE -> setState((DisplayPanel) object);
-            case HOVERING -> hover((Button) object);
-            case NOT_HOVERING -> hover(null);
-        }
-    }
-
-    private void setState(DisplayPanel displayPanel) {
+    public void setState(DisplayPanel displayPanel) {
         removeElement(this.centerDisplayPanel);
         this.centerDisplayPanel = displayPanel;
         addElement(this.centerDisplayPanel);
@@ -56,17 +49,17 @@ public class TileGameDisplayPanel extends DisplayPanel {
                 helpButton.disable();
             }
         }
-
-        infoDisplayPanel.react(Command.NOT_HOVERING, null);
     }
 
-    private void hover(Button button) {
-        if (button == null) {
-            infoDisplayPanel.react(Command.NOT_HOVERING, null);
-        } else {
-            infoDisplayPanel.react(Command.HOVERING, button);
-        }
+    public void showHoverInfo(String hoverText, ArrayList<TileColor> tileColors) {
+        infoDisplayPanel.showHoverInfo(hoverText, tileColors);
     }
 
+    public void clearHoverInfo() {
+        infoDisplayPanel.showHoverInfo(null, null);
+    }
 
+    public void gameStarted(GameSettings gameSettings) {
+        infoDisplayPanel.gameStarted(gameSettings);
+    }
 }

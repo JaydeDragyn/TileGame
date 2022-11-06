@@ -1,16 +1,16 @@
+import java.util.ArrayList;
+
 public class TileGameController extends Controller {
 
-    private Controller menuController;
-    private Controller gameController;
-    private Controller helpController;
+    private TileGameDisplayPanel tileGameDisplayPanel;
 
-    public TileGameController() {
-        super(null);
-    }
+    private MenuController menuController;
+    private GameController gameController;
+    private HelpController helpController;
 
     public void initialize() {
-        displayPanel = new TileGameDisplayPanel(this);
-        displayPanel.initialize();
+        tileGameDisplayPanel = new TileGameDisplayPanel(this);
+        tileGameDisplayPanel.initialize();
 
         menuController = new MenuController(this);
         menuController.initialize();
@@ -21,66 +21,46 @@ public class TileGameController extends Controller {
         helpController = new HelpController(this);
         helpController.initialize();
 
-        displayPanel.react(Command.SET_STATE, menuController.getDisplayPanel());
+        tileGameDisplayPanel.setState(menuController.getDisplayPanel());
     }
 
     @Override
     public DisplayPanel getDisplayPanel() {
-        return displayPanel;
+        return tileGameDisplayPanel;
     }
 
     @Override
     public void react(Button button) {
-        Command command = button.getButtonID().getCommand();
-        // react to a button press
-        switch (command) {
-            case SHOW_MENU -> showMenu();
-            case SHOW_HELP -> showHelp();
+        menuController.reset();
+        switch (button.getCommand()) {
+            case SHOW_MENU -> tileGameDisplayPanel.setState(menuController.getDisplayPanel());
+            case SHOW_HELP -> tileGameDisplayPanel.setState(helpController.getDisplayPanel());
         }
     }
 
     @Override
-    public void react(Command command, Object object) {
-        switch (command) {
-            // Button hovering (other controllers just pass these through)
-            case HOVERING -> displayPanel.react(Command.HOVERING, object);
-            case NOT_HOVERING -> displayPanel.react(Command.NOT_HOVERING, object);
-
-            case START_NEW_GAME -> startNewGame((GameSettings) object);
-            case RETURN_TO_GAME -> showGame();
-
-            case GAME_STARTED -> gameStarted();
-            case GAME_ENDED -> gameEnded();
-        }
+    public void hover(Button button) {
+        tileGameDisplayPanel.showHoverInfo(button.getHoverText(), null);
     }
 
-    private void showMenu() {
-        displayPanel.react(Command.SET_STATE, menuController.getDisplayPanel());
+    @Override
+    public void unhover() {
+        tileGameDisplayPanel.clearHoverInfo();
     }
 
-    private void showHelp() {
-        displayPanel.react(Command.SET_STATE, helpController.getDisplayPanel());
-        // if user was in Quit or New Game confirmation and clicked Help
-        menuController.react(Command.RESET, null);
+    public void showHoverInfo(String hoverText, ArrayList<TileColor> tileColors) {
+        tileGameDisplayPanel.showHoverInfo(hoverText, tileColors);
     }
 
-    private void showGame() {
-        displayPanel.react(Command.SET_STATE, gameController.getDisplayPanel());
-    }
-
-    private void startNewGame(GameSettings gameSettings) {
-        gameController.react(Command.START_NEW_GAME, gameSettings);
+    public void startNewGame(GameSettings gameSettings) {
+        gameController.startNewGame(gameSettings);
+        menuController.gameStarted();
+        helpController.gameStarted();
+        tileGameDisplayPanel.gameStarted(gameSettings);
         showGame();
     }
 
-    private void gameStarted() {
-        menuController.react(Command.GAME_STARTED, null);
-        helpController.react(Command.GAME_STARTED, null);
+    public void showGame() {
+        tileGameDisplayPanel.setState(gameController.getDisplayPanel());
     }
-
-    private void gameEnded() {
-        menuController.react(Command.GAME_ENDED, null);
-        helpController.react(Command.GAME_ENDED, null);
-    }
-
 }

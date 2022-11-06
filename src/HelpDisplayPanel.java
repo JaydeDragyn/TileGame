@@ -25,11 +25,4 @@ public class HelpDisplayPanel extends DisplayPanel {
 
     }
 
-    @Override
-    public void react(Command command, Object object) {
-        switch (command) {
-            case HOVERING -> controller.react(Command.HOVERING, object);
-            case NOT_HOVERING -> controller.react(Command.NOT_HOVERING, object);
-        }
-    }
 }
