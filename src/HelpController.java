@@ -1,7 +1,7 @@
 public class HelpController extends Controller {
 
     private final TileGameController tileGameController;
-    private DisplayPanel helpDisplayPanel;
+    private HelpDisplayPanel helpDisplayPanel;
 
     public HelpController(TileGameController tileGameController) {
         this.tileGameController = tileGameController;
@@ -20,7 +20,11 @@ public class HelpController extends Controller {
 
     @Override
     public void react(Button button) {
-        tileGameController.react(button);
+        switch (button.getCommand()) {
+            case PREV_HELP_PAGE -> helpDisplayPanel.showPrevPage();
+            case NEXT_HELP_PAGE -> helpDisplayPanel.showNextPage();
+            case RETURN_TO_GAME -> tileGameController.showGame();
+        }
     }
 
     @Override
@@ -34,10 +38,10 @@ public class HelpController extends Controller {
     }
 
     public void gameStarted() {
-
+        helpDisplayPanel.gameStarted();
     }
 
     public void gameEnded() {
-
+        helpDisplayPanel.gameEnded();
     }
 }

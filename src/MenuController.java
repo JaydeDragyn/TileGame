@@ -78,6 +78,16 @@ public class MenuController extends Controller {
         menuDisplayPanel.reset();
     }
 
+    public void gameStarted() {
+        menuState.gameStarted();
+        menuDisplayPanel.gameStarted();
+    }
+
+    public void gameEnded() {
+        menuState.gameEnded();
+        menuDisplayPanel.gameEnded();
+    }
+
     private void setGameMode(GameSettings.Difficulty difficulty) {
         menuState.setGameMode(difficulty);
         menuDisplayPanel.setGameMode(difficulty);
@@ -100,15 +110,5 @@ public class MenuController extends Controller {
         } else {
             tileGameController.startNewGame(menuState.getNewGameSettings());
         }
-    }
-
-    public void gameStarted() {
-        menuState.gameStarted();
-        menuDisplayPanel.gameStarted();
-    }
-
-    public void gameEnded() {
-        menuState.gameEnded();
-        menuDisplayPanel.gameEnded();
     }
 }
