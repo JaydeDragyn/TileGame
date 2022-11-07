@@ -29,7 +29,9 @@ public class GameController extends Controller {
 
     @Override
     public void unhover() {
-        gameDisplayPanel.clearAll();
+        if (gameState.isGameActive()) {
+            gameDisplayPanel.clearAll();
+        }
     }
 
     @Override
@@ -56,5 +58,13 @@ public class GameController extends Controller {
         gameState.newGame(gameSettings);
         TileColor[][] colors = gameState.getTiles();
         gameDisplayPanel.newGame(gameSettings, colors);
+    }
+
+    public void hoveringInfoTile(Tile tile) {
+        gameDisplayPanel.dimAllExcept(tile);
+    }
+
+    public void pressingInfoTile(Tile tile) {
+        gameDisplayPanel.disableAllExcept(tile);
     }
 }

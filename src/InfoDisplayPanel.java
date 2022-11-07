@@ -53,14 +53,17 @@ public class InfoDisplayPanel extends DisplayPanel {
     public BufferedImage getTexture() {
         if (hoverInfoElements.size() > 0) {
             drawHoverInfoTexture();
+            elements = hoverInfoElements;
             return hoverInfoTexture;
         }
 
         if (gameShowing) {
             drawGameInfoTexture();
+            elements = gameInfoElements;
             return gameInfoTexture;
         }
 
+        elements = new ArrayList<>();
         return background;
     }
 

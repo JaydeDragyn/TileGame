@@ -60,8 +60,30 @@ public class GameDisplayPanel extends DisplayPanel {
     public void clearAll() {
         for (Tile[] tileRow : tiles) {
             for (Tile tile : tileRow) {
+                tile.enable();
+                tile.turnOn();
                 tile.release();
                 tile.unhover();
+            }
+        }
+    }
+
+    public void dimAllExcept(Tile tile) {
+        for (Tile[] tileRow : tiles) {
+            for (Tile t : tileRow) {
+                if (t.getColor() != tile.getColor()) {
+                    t.turnOff();
+                }
+            }
+        }
+    }
+
+    public void disableAllExcept(Tile tile) {
+        for (Tile[] tileRow : tiles) {
+            for (Tile t : tileRow) {
+                if (t.getColor() != tile.getColor()) {
+                    t.disable();
+                }
             }
         }
     }

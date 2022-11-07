@@ -31,17 +31,23 @@ public class TileGameController extends Controller {
 
     @Override
     public void hover(Button button) {
-        tileGameDisplayPanel.showHoverInfo(button.getHoverText(), null);
+        switch (button.getCommand()) {
+            case SHOW_MENU, SHOW_HELP -> tileGameDisplayPanel.showHoverInfo(button.getHoverText(), null);
+            case HOVER_TILE -> gameController.hoveringInfoTile((Tile) button);
+        }
     }
 
     @Override
     public void unhover() {
         tileGameDisplayPanel.clearHoverInfo();
+        gameController.unhover();
     }
 
     @Override
     public void press(Button button) {
-        // No press response for Menu/Help buttons
+        if (button.getCommand() == Command.HOVER_TILE) {
+            gameController.pressingInfoTile((Tile) button);
+        }
     }
 
     @Override

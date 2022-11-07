@@ -39,6 +39,14 @@ public class Tile extends Button {
         return color;
     }
 
+    public void turnOn() {
+        off = false;
+    }
+
+    public void turnOff() {
+        off = true;
+    }
+
     public void setColor(TileColor color) {
         this.color = color;
     }
