@@ -37,6 +37,7 @@ public class TileGameDisplayPanel extends DisplayPanel {
 
         switch (displayPanel.getDisplayPanelID()) {
             case MENU -> {
+                menuButton.mouseMovedOff();
                 menuButton.disable();
                 helpButton.enable();
             }
@@ -46,6 +47,7 @@ public class TileGameDisplayPanel extends DisplayPanel {
             }
             case HELP -> {
                 menuButton.enable();
+                helpButton.mouseMovedOff();
                 helpButton.disable();
             }
         }

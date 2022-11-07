@@ -35,14 +35,6 @@ public class Tile extends Button {
         return index;
     }
 
-    public void hover() {
-        hovered = true;
-    }
-
-    public void unhover() {
-        hovered = false;
-    }
-
     public TileColor getColor() {
         return color;
     }
@@ -50,7 +42,6 @@ public class Tile extends Button {
     public void setColor(TileColor color) {
         this.color = color;
     }
-
 
     @Override
     public BufferedImage getTexture() {
@@ -60,6 +51,8 @@ public class Tile extends Button {
         if (hovered) { return sizeTexture(hoverTiles.get(color)); }  // hovered
         return sizeTexture(onTiles.get(color));                      // on
     }
+
+    // -----------------------------------------------------------------------
 
     private static boolean initialized = false;
     private static final Map<TileColor, BufferedImage> offTiles = new EnumMap<>(TileColor.class);

@@ -65,7 +65,13 @@ public class TileGameController extends Controller {
         showGame();
     }
 
+    public void gameEnded() {
+        menuController.gameEnded();
+        helpController.gameEnded();
+    }
+
     public void showGame() {
+        menuController.reset();
         tileGameDisplayPanel.setState(gameController.getDisplayPanel());
     }
 }

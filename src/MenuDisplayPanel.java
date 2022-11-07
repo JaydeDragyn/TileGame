@@ -9,7 +9,9 @@ public class MenuDisplayPanel extends DisplayPanel {
     private RadioButton boardSize3x3;
     private RadioButton boardSize3x5;
     private RadioButton boardSize5x5;
+    private ActionButton startButton;
     private ActionButton backButton;
+    private ActionButton quitButton;
     private ArrayList<DisplayElement> menuElements;
     private ArrayList<DisplayElement> confirmStartElements;
     private ArrayList<DisplayElement> confirmQuitElements;
@@ -54,23 +56,30 @@ public class MenuDisplayPanel extends DisplayPanel {
     }
 
     public void confirmStartNewGame() {
+        startButton.mouseMovedOff();
         elements = confirmStartElements;
     }
 
     public void confirmQuit() {
+        quitButton.mouseMovedOff();
         elements = confirmQuitElements;
     }
 
     public void reset() {
+        startButton.mouseMovedOff();
+        backButton.mouseMovedOff();
+        quitButton.mouseMovedOff();
         elements = menuElements;
     }
 
     public void gameStarted() {
+        startButton.mouseMovedOff();
         backButton.enable();
         reset();
     }
 
     public void gameEnded() {
+        backButton.mouseMovedOff();
         backButton.disable();
         reset();
     }
@@ -114,9 +123,9 @@ public class MenuDisplayPanel extends DisplayPanel {
         addElement(boardSize3x5 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_3X5, new Point(300, 210), controller));
         addElement(boardSize5x5 = new RadioButton(ButtonID.BUTTON_BOARD_SIZE_5X5, new Point(300, 310), controller));
 
-        addElement(new ActionButton(ButtonID.BUTTON_START, new Point(25, 425), controller));
+        addElement(startButton = new ActionButton(ButtonID.BUTTON_START, new Point(25, 425), controller));
         addElement(backButton = new ActionButton(ButtonID.BUTTON_BACK, new Point(187, 425), controller));
-        addElement(new ActionButton(ButtonID.BUTTON_QUIT, new Point(350, 425), controller));
+        addElement(quitButton = new ActionButton(ButtonID.BUTTON_QUIT, new Point(350, 425), controller));
 
         menuElements = elements;
     }

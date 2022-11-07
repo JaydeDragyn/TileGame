@@ -12,7 +12,6 @@ public class GameController extends Controller {
     public void initialize() {
         gameDisplayPanel = new GameDisplayPanel(this);
         gameDisplayPanel.initialize();
-
         gameState = new GameState();
     }
 
@@ -23,7 +22,8 @@ public class GameController extends Controller {
 
     @Override
     public void hover(Button button) {
-        gameDisplayPanel.expandHover((Tile) button);
+        Tile tile = (Tile) button;
+        gameDisplayPanel.expandHover(gameState.getNeighbors(tile.getIndex()));
     }
 
     @Override
@@ -33,12 +33,20 @@ public class GameController extends Controller {
 
     @Override
     public void press(Button button) {
-        gameDisplayPanel.expandPress((Tile) button);
+        Tile tile = (Tile) button;
+        gameDisplayPanel.expandPress(gameState.getNeighbors(tile.getIndex()));
     }
 
     @Override
     public void react(Button button) {
+        Tile tile = (Tile) button;
+        gameState.cycleTiles(tile.getIndex());
+        gameDisplayPanel.updateTileColors(gameState.getTiles());
         gameDisplayPanel.clearAll();
+        if (gameState.winState()) {
+            gameDisplayPanel.showWin();
+            tileGameController.gameEnded();
+        }
     }
 
     public void startNewGame(GameSettings gameSettings) {

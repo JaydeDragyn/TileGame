@@ -33,47 +33,61 @@ public abstract class Button extends DisplayElement {
         return getButtonID().getCommand();
     }
 
-    public void press() {
-        pressed = true;
-    }
-    public void release() {
-        pressed = false;
-    }
-
-    @Override
-    public void mouseMovedOn(Point location) {
-        if (!enabled) { return; }
-        hovered = true;
-        controller.hover(this);
-    }
-
-    @Override
-    public void mouseMovedOff() {
-        hovered = false;
-        release();
-        controller.unhover();
-    }
-
-    @Override
-    public void mousePressed(Point location) {
-        press();
-        controller.press(this);
-    }
-
-    @Override
-    public void mouseReleased(Point location) {
-        if (enabled && pressed) {
-            controller.react(this);
-        }
-        release();
-    }
-
     public void enable() {
         enabled = true;
     }
 
     public void disable() {
         enabled = false;
+    }
+
+    public void hover() {
+        hovered = true;
+    }
+
+    public void unhover() {
+        hovered = false;
+        pressed = false;
+    }
+
+    public void press() {
+        pressed = true;
+    }
+
+    public void release() {
+        pressed = false;
+    }
+
+    @Override
+    public void mouseMovedOn(Point location) {
+        if (enabled) {
+            hover();
+            controller.hover(this);
+        }
+    }
+
+    @Override
+    public void mouseMovedOff() {
+        if (enabled) {
+            unhover();
+            controller.unhover();
+        }
+    }
+
+    @Override
+    public void mousePressed(Point location) {
+        if (enabled) {
+            press();
+            controller.press(this);
+        }
+     }
+
+    @Override
+    public void mouseReleased(Point location) {
+        if (enabled && pressed) {
+            release();
+            controller.react(this);
+        }
     }
 
 

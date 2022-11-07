@@ -47,6 +47,7 @@ public class HelpDisplayPanel extends DisplayPanel {
         currentPage--;
         nextButton.enable();
         if (currentPage == 0) {
+            prevButton.mouseMovedOff();
             prevButton.disable();
         }
     }
@@ -55,6 +56,7 @@ public class HelpDisplayPanel extends DisplayPanel {
         currentPage++;
         prevButton.enable();
         if (currentPage == pages.size() -1) {
+            nextButton.mouseMovedOff();
             nextButton.disable();
         }
     }
@@ -64,6 +66,7 @@ public class HelpDisplayPanel extends DisplayPanel {
     }
 
     public void gameEnded() {
+        backButton.mouseMovedOff();
         backButton.disable();
     }
 
