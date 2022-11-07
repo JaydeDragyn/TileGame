@@ -92,19 +92,19 @@ public class MenuDisplayPanel extends DisplayPanel {
         addElement(new StaticImage("Size_3x5", new Point(363, 230)));
         addElement(new StaticImage("Size_5x5", new Point(363, 330)));
 
-        addElement(new Tile(ButtonID.TILE_MENU_EASY_0, new Point(88, 130), TileColor.RED, Tile.Size.SMALL, controller));
-        addElement(new Tile(ButtonID.TILE_MENU_EASY_1, new Point(143, 130), TileColor.WHITE, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_EASY_0, null, new Point(88, 130), TileColor.RED, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_EASY_1, null, new Point(143, 130), TileColor.WHITE, Tile.Size.SMALL, controller));
 
-        addElement(new Tile(ButtonID.TILE_MENU_MEDIUM_0, new Point(88, 230), TileColor.CYAN, Tile.Size.SMALL, controller));
-        addElement(new Tile(ButtonID.TILE_MENU_MEDIUM_1, new Point(143, 230), TileColor.MAGENTA, Tile.Size.SMALL, controller));
-        addElement(new Tile(ButtonID.TILE_MENU_MEDIUM_2, new Point(198, 230), TileColor.YELLOW, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_MEDIUM_0, null, new Point(88, 230), TileColor.CYAN, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_MEDIUM_1, null, new Point(143, 230), TileColor.MAGENTA, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_MEDIUM_2, null, new Point(198, 230), TileColor.YELLOW, Tile.Size.SMALL, controller));
 
-        addElement(new Tile(ButtonID.TILE_MENU_HARD_0, new Point(88, 330), TileColor.RED, Tile.Size.SMALL, controller));
-        addElement(new Tile(ButtonID.TILE_MENU_HARD_1, new Point(143, 330), TileColor.ORANGE, Tile.Size.SMALL, controller));
-        addElement(new Tile(ButtonID.TILE_MENU_HARD_2, new Point(198, 330), TileColor.YELLOW, Tile.Size.SMALL, controller));
-        addElement(new Tile(ButtonID.TILE_MENU_HARD_3, new Point(108, 360), TileColor.GREEN, Tile.Size.SMALL, controller));
-        addElement(new Tile(ButtonID.TILE_MENU_HARD_4, new Point(163, 360), TileColor.BLUE, Tile.Size.SMALL, controller));
-        addElement(new Tile(ButtonID.TILE_MENU_HARD_5, new Point(218, 360), TileColor.PURPLE, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_HARD_0, null, new Point(88, 330), TileColor.RED, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_HARD_1, null, new Point(143, 330), TileColor.ORANGE, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_HARD_2, null, new Point(198, 330), TileColor.YELLOW, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_HARD_3, null, new Point(108, 360), TileColor.GREEN, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_HARD_4, null, new Point(163, 360), TileColor.BLUE, Tile.Size.SMALL, controller));
+        addElement(new Tile(ButtonID.TILE_MENU_HARD_5, null, new Point(218, 360), TileColor.PURPLE, Tile.Size.SMALL, controller));
 
         addElement(difficultyEasyButton = new RadioButton(ButtonID.BUTTON_DIFFICULTY_EASY, new Point(25, 110), controller));
         addElement(difficultyMediumButton = new RadioButton(ButtonID.BUTTON_DIFFICULTY_MEDIUM, new Point(25, 210), controller));

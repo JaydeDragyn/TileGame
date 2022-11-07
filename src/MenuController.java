@@ -26,6 +26,30 @@ public class MenuController extends Controller {
     }
 
     @Override
+    public void hover(Button button) {
+        switch (button.getCommand()) {
+            case CYCLE_EASY_TILE ->
+                    tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.EASY));
+            case CYCLE_MEDIUM_TILE ->
+                    tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.MEDIUM));
+            case CYCLE_HARD_TILE ->
+                    tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.HARD));
+            default ->
+                    tileGameController.showHoverInfo(button.getHoverText(), null);
+        }
+    }
+
+    @Override
+    public void unhover() {
+        tileGameController.unhover();
+    }
+
+    @Override
+    public void press(Button button) {
+        // No press responses to menu items
+    }
+
+    @Override
     public void react(Button button) {
         switch (button.getCommand()) {
             // Difficulty Radio Buttons
@@ -53,25 +77,6 @@ public class MenuController extends Controller {
             case YES_QUIT -> System.exit(0);
             case NO_START, NO_QUIT -> menuDisplayPanel.reset();
         }
-    }
-
-    @Override
-    public void hover(Button button) {
-        switch (button.getCommand()) {
-            case CYCLE_EASY_TILE ->
-                tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.EASY));
-            case CYCLE_MEDIUM_TILE ->
-                tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.MEDIUM));
-            case CYCLE_HARD_TILE ->
-                tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.HARD));
-            default ->
-                tileGameController.showHoverInfo(button.getHoverText(), null);
-        }
-    }
-
-    @Override
-    public void unhover() {
-        tileGameController.unhover();
     }
 
     public void reset() {

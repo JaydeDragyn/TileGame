@@ -33,6 +33,13 @@ public abstract class Button extends DisplayElement {
         return getButtonID().getCommand();
     }
 
+    public void press() {
+        pressed = true;
+    }
+    public void release() {
+        pressed = false;
+    }
+
     @Override
     public void mouseMovedOn(Point location) {
         if (!enabled) { return; }
@@ -43,13 +50,14 @@ public abstract class Button extends DisplayElement {
     @Override
     public void mouseMovedOff() {
         hovered = false;
-        pressed = false;
+        release();
         controller.unhover();
     }
 
     @Override
     public void mousePressed(Point location) {
-        pressed = true;
+        press();
+        controller.press(this);
     }
 
     @Override
@@ -57,7 +65,7 @@ public abstract class Button extends DisplayElement {
         if (enabled && pressed) {
             controller.react(this);
         }
-        pressed = false;
+        release();
     }
 
     public void enable() {

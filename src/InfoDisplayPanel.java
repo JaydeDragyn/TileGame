@@ -59,7 +59,7 @@ public class InfoDisplayPanel extends DisplayPanel {
             int tileWidthNeeded = numTiles * 60;     // 50px for medium tiles + 10px space
             int tileX = 250 - (tileWidthNeeded / 2); // center - half width needed
             for (TileColor color : tiles) {
-                Tile tile = new Tile(null, new Point(tileX, 56), color, Tile.Size.MEDIUM, null);
+                Tile tile = new Tile(null, null, new Point(tileX, 56), color, Tile.Size.MEDIUM, null);
                 hoverInfoPen.drawImage(tile.getTexture(), tile.getLocation().x, tile.getLocation().y, null);
                 tileX += 60;
             }

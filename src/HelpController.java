@@ -19,15 +19,6 @@ public class HelpController extends Controller {
     }
 
     @Override
-    public void react(Button button) {
-        switch (button.getCommand()) {
-            case PREV_HELP_PAGE -> helpDisplayPanel.showPrevPage();
-            case NEXT_HELP_PAGE -> helpDisplayPanel.showNextPage();
-            case RETURN_TO_GAME -> tileGameController.showGame();
-        }
-    }
-
-    @Override
     public void hover(Button button) {
         tileGameController.hover(button);
     }
@@ -35,6 +26,20 @@ public class HelpController extends Controller {
     @Override
     public void unhover() {
         tileGameController.unhover();
+    }
+
+    @Override
+    public void press(Button button) {
+        // No press responses to menu items
+    }
+
+    @Override
+    public void react(Button button) {
+        switch (button.getCommand()) {
+            case PREV_HELP_PAGE -> helpDisplayPanel.showPrevPage();
+            case NEXT_HELP_PAGE -> helpDisplayPanel.showNextPage();
+            case RETURN_TO_GAME -> tileGameController.showGame();
+        }
     }
 
     public void gameStarted() {

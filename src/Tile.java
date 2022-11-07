@@ -16,17 +16,31 @@ public class Tile extends Button {
         }
     }
 
+    private final Point index;
     private TileColor color;
     private boolean off;
 
-    public Tile(ButtonID buttonID, Point location, TileColor color, Size size, Controller controller) {
+    public Tile(ButtonID buttonID, Point index, Point location, TileColor color, Size size, Controller controller) {
         super(buttonID, location, controller);
 
         if (!initialized) { initializeTiles(); }
 
+        this.index = index;
         this.color = color;
         this.size = new Dimension(size.size, size.size);
         off = false;
+    }
+
+    public Point getIndex() {
+        return index;
+    }
+
+    public void hover() {
+        hovered = true;
+    }
+
+    public void unhover() {
+        hovered = false;
     }
 
     public TileColor getColor() {

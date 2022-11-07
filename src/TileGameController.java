@@ -30,15 +30,6 @@ public class TileGameController extends Controller {
     }
 
     @Override
-    public void react(Button button) {
-        menuController.reset();
-        switch (button.getCommand()) {
-            case SHOW_MENU -> tileGameDisplayPanel.setState(menuController.getDisplayPanel());
-            case SHOW_HELP -> tileGameDisplayPanel.setState(helpController.getDisplayPanel());
-        }
-    }
-
-    @Override
     public void hover(Button button) {
         tileGameDisplayPanel.showHoverInfo(button.getHoverText(), null);
     }
@@ -46,6 +37,20 @@ public class TileGameController extends Controller {
     @Override
     public void unhover() {
         tileGameDisplayPanel.clearHoverInfo();
+    }
+
+    @Override
+    public void press(Button button) {
+        // No press response for Menu/Help buttons
+    }
+
+    @Override
+    public void react(Button button) {
+        menuController.reset();
+        switch (button.getCommand()) {
+            case SHOW_MENU -> tileGameDisplayPanel.setState(menuController.getDisplayPanel());
+            case SHOW_HELP -> tileGameDisplayPanel.setState(helpController.getDisplayPanel());
+        }
     }
 
     public void showHoverInfo(String hoverText, ArrayList<TileColor> tileColors) {
