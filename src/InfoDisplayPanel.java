@@ -5,14 +5,19 @@ import java.util.ArrayList;
 public class InfoDisplayPanel extends DisplayPanel {
 
     private BufferedImage background;
+
+    private ArrayList<DisplayElement> hoverInfoElements;
     private BufferedImage hoverInfoTexture;
     private Graphics2D hoverInfoPen;
-    private boolean showingHoverText;
+
+    private ArrayList<DisplayElement> gameInfoElements;
+    private BufferedImage gameInfoTexture;
+    private Graphics2D gameInfoPen;
+    private boolean gameShowing;
 
     public InfoDisplayPanel(Controller controller) {
         super(DisplayPanelID.INFO, new Point(150, 670), controller);
         size = new Dimension(500, 130);
-        showingHoverText = false;
     }
 
     @Override
@@ -23,50 +28,95 @@ public class InfoDisplayPanel extends DisplayPanel {
         backgroundPen.drawImage(backgroundImage.getTexture(), -150, -670, null);
         backgroundPen.dispose();
 
+        hoverInfoElements = new ArrayList<>();
         hoverInfoTexture = new BufferedImage(500, 130, BufferedImage.TYPE_INT_RGB);
         hoverInfoPen = hoverInfoTexture.createGraphics();
         hoverInfoPen.setColor(Color.BLACK);
+
+        gameInfoElements = new ArrayList<>();
+        gameInfoTexture = new BufferedImage(500, 130, BufferedImage.TYPE_INT_RGB);
+        gameInfoPen = gameInfoTexture.createGraphics();
+        gameInfoPen.setColor(Color.BLACK);
+
+        gameShowing = false;
+    }
+
+    public void gameShowing() {
+        gameShowing = true;
+    }
+
+    public void gameHidden() {
+        gameShowing = false;
     }
 
     @Override
     public BufferedImage getTexture() {
-        if (showingHoverText) {
+        if (hoverInfoElements.size() > 0) {
+            drawHoverInfoTexture();
             return hoverInfoTexture;
+        }
+
+        if (gameShowing) {
+            drawGameInfoTexture();
+            return gameInfoTexture;
         }
 
         return background;
     }
 
-    public void showHoverInfo(String text, ArrayList<TileColor> tiles) {
-        hoverInfoPen.drawImage(background, 0, 0, null);
+    public void setHoverInfo(String text, ArrayList<TileColor> colors) {
+        hoverInfoElements.clear();
 
         if (text == null) {
-            showingHoverText = false;
             return;
         }
 
-        TextLabel hoverText = new TextLabel(text, new Point(0, 0), TextLabel.FontSize.SMALL, Color.WHITE);
-        int hoverTextStart = 250 - ((TextLabel.getTextLabelSize(text, TextLabel.FontSize.SMALL).width) / 2);
-        showingHoverText = true;
-
-        if (tiles == null) {
-            hoverInfoPen.fillRoundRect(0, 0, 500, 75, 25, 25);
-            hoverInfoPen.drawImage(hoverText.getTexture(), hoverTextStart, 22, null);
+        if (colors == null) {
+            hoverInfoElements.add(createInfoTextLabel(text, 22));
         } else {
-            hoverInfoPen.fillRoundRect(0, 0, 500, 119, 30, 30);
-            hoverInfoPen.drawImage(hoverText.getTexture(), hoverTextStart, 10, null);
-            int numTiles = tiles.size();
-            int tileWidthNeeded = numTiles * 60;     // 50px for medium tiles + 10px space
-            int tileX = 250 - (tileWidthNeeded / 2); // center - half width needed
-            for (TileColor color : tiles) {
-                Tile tile = new Tile(null, null, new Point(tileX, 56), color, Tile.Size.MEDIUM, null);
-                hoverInfoPen.drawImage(tile.getTexture(), tile.getLocation().x, tile.getLocation().y, null);
-                tileX += 60;
-            }
+            hoverInfoElements.add(createInfoTextLabel(text, 10));
+            addTilesToList(colors, hoverInfoElements);
         }
     }
 
     public void gameStarted(GameSettings gameSettings) {
+        gameInfoElements.clear();
+        gameInfoElements.add(createInfoTextLabel("Color progression for this game:", 10));
+        addTilesToList(gameSettings.progression(), gameInfoElements);
+    }
 
+    private TextLabel createInfoTextLabel(String text, int height) {
+        int textStart = 250 - (TextLabel.getTextLabelSize(text, TextLabel.FontSize.SMALL).width / 2);
+        return new TextLabel(text, new Point(textStart, height), TextLabel.FontSize.SMALL, Color.WHITE);
+    }
+
+    private void addTilesToList(ArrayList<TileColor> progression, ArrayList<DisplayElement> targetList) {
+        int numTiles = progression.size();
+        int totalWidth = numTiles * 60;     // 50px for medium tiles + 10px space
+        int tileStart = 250 - (totalWidth / 2);
+        for (TileColor color : progression) {
+            targetList.add(new Tile(ButtonID.TILE_HOVER_INFO, null, new Point(tileStart, 56), color, Tile.Size.MEDIUM, controller));
+            tileStart += 60;
+        }
+    }
+
+    private void drawHoverInfoTexture() {
+        hoverInfoPen.drawImage(background, 0, 0, null);
+        if (hoverInfoElements.size() == 1) {
+            hoverInfoPen.fillRoundRect(0, 0, 500, 75, 25, 25);
+        } else {
+            hoverInfoPen.fillRoundRect(0, 0, 500, 119, 25, 25);
+        }
+        for (DisplayElement element : hoverInfoElements) {
+            drawElement(hoverInfoPen, element);
+        }
+    }
+
+    private void drawGameInfoTexture() {
+        gameInfoPen.drawImage(background, 0, 0, null);
+        gameInfoPen.fillRoundRect(0, 0, 500, 119, 25, 25);
+        for (DisplayElement element : gameInfoElements) {
+            drawElement(gameInfoPen, element);
+        }
     }
 }

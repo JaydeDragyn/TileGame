@@ -40,25 +40,28 @@ public class TileGameDisplayPanel extends DisplayPanel {
                 menuButton.mouseMovedOff();
                 menuButton.disable();
                 helpButton.enable();
+                infoDisplayPanel.gameHidden();
             }
             case GAME -> {
                 menuButton.enable();
                 helpButton.enable();
+                infoDisplayPanel.gameShowing();
             }
             case HELP -> {
                 menuButton.enable();
                 helpButton.mouseMovedOff();
                 helpButton.disable();
+                infoDisplayPanel.gameHidden();
             }
         }
     }
 
     public void showHoverInfo(String hoverText, ArrayList<TileColor> tileColors) {
-        infoDisplayPanel.showHoverInfo(hoverText, tileColors);
+        infoDisplayPanel.setHoverInfo(hoverText, tileColors);
     }
 
     public void clearHoverInfo() {
-        infoDisplayPanel.showHoverInfo(null, null);
+        infoDisplayPanel.setHoverInfo(null, null);
     }
 
     public void gameStarted(GameSettings gameSettings) {

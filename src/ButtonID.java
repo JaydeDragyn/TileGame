@@ -33,7 +33,8 @@ public enum ButtonID {
     TILE_MENU_HARD_4("4", "Change 5th color of hard progression", Command.CYCLE_HARD_TILE),
     TILE_MENU_HARD_5("5", "Change target color of hard progression", Command.CYCLE_HARD_TILE),
 
-    TILE_GAME_TILE("", "", Command.CLICK_TILE);
+    TILE_GAME_TILE("", "", Command.CLICK_TILE),
+    TILE_HOVER_INFO("", "", Command.HOVER_TILE);
 
     private final String name;
     private final String hoverText;

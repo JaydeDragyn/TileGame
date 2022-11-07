@@ -7,6 +7,7 @@ public enum Command {
     GAME_MODE_HARD,
 
     CLICK_TILE,
+    HOVER_TILE,
 
     BOARD_SIZE_3X3,
     BOARD_SIZE_3X5,
