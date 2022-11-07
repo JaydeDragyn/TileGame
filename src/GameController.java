@@ -22,6 +22,7 @@ public class GameController extends Controller {
 
     @Override
     public void hover(Button button) {
+        if (!gameState.isGameActive()) { return; }
         Tile tile = (Tile) button;
         gameDisplayPanel.expandHover(gameState.getNeighbors(tile.getIndex()));
     }
@@ -33,12 +34,14 @@ public class GameController extends Controller {
 
     @Override
     public void press(Button button) {
+        if (!gameState.isGameActive()) { return; }
         Tile tile = (Tile) button;
         gameDisplayPanel.expandPress(gameState.getNeighbors(tile.getIndex()));
     }
 
     @Override
     public void react(Button button) {
+        if (!gameState.isGameActive()) { return; }
         Tile tile = (Tile) button;
         gameState.cycleTiles(tile.getIndex());
         gameDisplayPanel.updateTileColors(gameState.getTiles());

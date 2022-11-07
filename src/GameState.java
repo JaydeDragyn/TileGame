@@ -5,11 +5,10 @@ public class GameState {
 
     private GameSettings gameSettings;
     private TileColor[][] tiles;
+    private boolean activeGame;
 
     public void newGame(GameSettings gameSettings) {
-        System.out.println("Starting new game with settings:");
-        System.out.println(gameSettings.progression());
-        System.out.println(gameSettings.boardSize());
+        activeGame = true;
 
         this.gameSettings = gameSettings;
         switch (gameSettings.boardSize()) {
@@ -21,6 +20,10 @@ public class GameState {
 
     public TileColor[][] getTiles() {
         return tiles;
+    }
+
+    public boolean isGameActive() {
+        return activeGame;
     }
 
     public void cycleTiles(Point p) {
@@ -50,6 +53,7 @@ public class GameState {
                 }
             }
         }
+        activeGame = false;
         return true;
     }
 
