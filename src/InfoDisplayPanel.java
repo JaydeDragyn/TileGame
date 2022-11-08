@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class InfoDisplayPanel extends DisplayPanel {
 
     private BufferedImage background;
+    private ArrayList<DisplayElement> emptyList;
 
     private ArrayList<DisplayElement> hoverInfoElements;
     private BufferedImage hoverInfoTexture;
@@ -28,6 +29,8 @@ public class InfoDisplayPanel extends DisplayPanel {
         backgroundPen.drawImage(backgroundImage.getTexture(), -150, -670, null);
         backgroundPen.dispose();
 
+        emptyList = elements;
+
         hoverInfoElements = new ArrayList<>();
         hoverInfoTexture = new BufferedImage(500, 130, BufferedImage.TYPE_INT_RGB);
         hoverInfoPen = hoverInfoTexture.createGraphics();
@@ -38,14 +41,6 @@ public class InfoDisplayPanel extends DisplayPanel {
         gameInfoPen = gameInfoTexture.createGraphics();
         gameInfoPen.setColor(Color.BLACK);
 
-        gameShowing = false;
-    }
-
-    public void gameShowing() {
-        gameShowing = true;
-    }
-
-    public void gameHidden() {
         gameShowing = false;
     }
 
@@ -63,8 +58,16 @@ public class InfoDisplayPanel extends DisplayPanel {
             return gameInfoTexture;
         }
 
-        elements = new ArrayList<>();
+        elements = emptyList;
         return background;
+    }
+
+    public void gameShowing() {
+        gameShowing = true;
+    }
+
+    public void gameHidden() {
+        gameShowing = false;
     }
 
     public void setHoverInfo(String text, ArrayList<TileColor> colors) {
@@ -78,14 +81,14 @@ public class InfoDisplayPanel extends DisplayPanel {
             hoverInfoElements.add(createInfoTextLabel(text, 22));
         } else {
             hoverInfoElements.add(createInfoTextLabel(text, 10));
-            addTilesToList(colors, hoverInfoElements);
+            addTilesToList(hoverInfoElements, colors);
         }
     }
 
     public void gameStarted(GameSettings gameSettings) {
         gameInfoElements.clear();
         gameInfoElements.add(createInfoTextLabel("Color progression for this game:", 10));
-        addTilesToList(gameSettings.progression(), gameInfoElements);
+        addTilesToList(gameInfoElements, gameSettings.progression());
     }
 
     private TextLabel createInfoTextLabel(String text, int height) {
@@ -93,9 +96,9 @@ public class InfoDisplayPanel extends DisplayPanel {
         return new TextLabel(text, new Point(textStart, height), TextLabel.FontSize.SMALL, Color.WHITE);
     }
 
-    private void addTilesToList(ArrayList<TileColor> progression, ArrayList<DisplayElement> targetList) {
+    private void addTilesToList(ArrayList<DisplayElement> targetList, ArrayList<TileColor> progression) {
         int numTiles = progression.size();
-        int totalWidth = numTiles * 60;     // 50px for medium tiles + 10px space
+        int totalWidth = (numTiles * 60) - 10;     // 50px for medium tiles + 10px space (less 10 to keep centered)
         int tileStart = 250 - (totalWidth / 2);
         for (TileColor color : progression) {
             targetList.add(new Tile(ButtonID.TILE_HOVER_INFO, null, new Point(tileStart, 56), color, Tile.Size.MEDIUM, controller));

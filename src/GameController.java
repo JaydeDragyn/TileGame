@@ -56,8 +56,7 @@ public class GameController extends Controller {
 
     public void startNewGame(GameSettings gameSettings) {
         gameState.newGame(gameSettings);
-        TileColor[][] colors = gameState.getTiles();
-        gameDisplayPanel.newGame(gameSettings, colors);
+        gameDisplayPanel.newGame(gameSettings, gameState.getTiles());
     }
 
     public void hoveringInfoTile(Tile tile) {

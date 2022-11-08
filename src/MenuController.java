@@ -29,11 +29,17 @@ public class MenuController extends Controller {
     public void hover(Button button) {
         switch (button.getCommand()) {
             case CYCLE_EASY_TILE ->
-                    tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.EASY));
+                    tileGameController.showHoverInfo(
+                            button.getHoverText(),
+                            menuState.getProgression(GameSettings.Difficulty.EASY));
             case CYCLE_MEDIUM_TILE ->
-                    tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.MEDIUM));
+                    tileGameController.showHoverInfo(
+                            button.getHoverText(),
+                            menuState.getProgression(GameSettings.Difficulty.MEDIUM));
             case CYCLE_HARD_TILE ->
-                    tileGameController.showHoverInfo(button.getHoverText(), menuState.getProgression(GameSettings.Difficulty.HARD));
+                    tileGameController.showHoverInfo(
+                            button.getHoverText(),
+                            menuState.getProgression(GameSettings.Difficulty.HARD));
             default ->
                     tileGameController.showHoverInfo(button.getHoverText(), null);
         }
@@ -104,8 +110,7 @@ public class MenuController extends Controller {
     }
 
     private void cycleProgressionTile(Tile tile, GameSettings.Difficulty difficulty) {
-        TileColor newColor = menuState.cycleProgressionTile(difficulty, Integer.parseInt(tile.getName()));
-        tile.setColor(newColor);
+        tile.setColor(menuState.cycleProgressionTile(difficulty, Integer.parseInt(tile.getName())));
         hover(tile);
     }
 

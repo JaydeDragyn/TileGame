@@ -11,17 +11,6 @@ public class TextLabel extends StaticDisplayElement {
         LARGE
     }
 
-    public static Dimension getTextLabelSize(String text, FontSize fontSize) {
-        Font font;
-        switch (fontSize) {
-            case LARGE -> font = fontLarge;
-            case MEDIUM -> font = fontMedium;
-            default -> font = fontSmall;
-        }
-        FontMetrics fontMetrics = new Canvas().getFontMetrics(font);
-        return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
-    }
-
     private final BufferedImage texture;
 
     public TextLabel(String text, Point location, FontSize fontSize, Color color) {
@@ -51,6 +40,20 @@ public class TextLabel extends StaticDisplayElement {
     public BufferedImage getTexture() {
         return texture;
     }
+
+    public static Dimension getTextLabelSize(String text, FontSize fontSize) {
+        Font font;
+        switch (fontSize) {
+            case LARGE -> font = fontLarge;
+            case MEDIUM -> font = fontMedium;
+            default -> font = fontSmall;
+        }
+        FontMetrics fontMetrics = new Canvas().getFontMetrics(font);
+        return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
+    }
+
+    // -------------------------------------------------------------------------
+
     public static Font fontLarge;
     public static Font fontMedium;
     public static Font fontSmall;
@@ -90,6 +93,4 @@ public class TextLabel extends StaticDisplayElement {
             System.out.println("Failed to load a font");
         }
     }
-
 }
-

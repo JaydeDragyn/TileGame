@@ -52,5 +52,4 @@ public abstract class DisplayElement {
     public static void drawElement(Graphics2D pen, DisplayElement element) {
         pen.drawImage(element.getTexture(), element.getLocation().x, element.getLocation().y, null);
     }
-
 }
