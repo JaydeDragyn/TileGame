@@ -126,7 +126,7 @@ public class HelpDisplayPanel extends DisplayPanel {
         ArrayList<TextLabel> labels = new ArrayList<>();
 
         labels.add(new TextLabel("About this game:", new Point(100, 0), TextLabel.FontSize.LARGE, new Color(0.5f, 1.0f, 0.5f)));
-        labels.add(new TextLabel("Tile Game (v1.0)", new Point(138, 50), TextLabel.FontSize.MEDIUM, new Color(0.75f, 1.0f, 0.75f)));
+        labels.add(new TextLabel("v1.0 - Copyright (C) 2022  Jayde Dragyn", new Point(49, 50), TextLabel.FontSize.SMALL, new Color(0.75f, 1.0f, 0.75f)));
         labels.add(new TextLabel("Written by:", new Point(10, 110), TextLabel.FontSize.MEDIUM, new Color(0.75f, 1.0f, 0.75f)));
         labels.add(new TextLabel("Jayde Dragyn", new Point(170, 110), TextLabel.FontSize.MEDIUM, new Color(0.5f, 1.0f, 0.5f)));
         labels.add(new TextLabel("jaydedragyn@outlook.com", new Point(170,150), TextLabel.FontSize.SMALL, Color.WHITE));
