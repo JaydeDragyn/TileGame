@@ -1,3 +1,24 @@
+/*
+    class Tile
+
+    Tiles are Buttons, but with an expanded range of textures in the form
+    of all the colors.
+    When creating a Tile, a Size must be specified (SMALL, MEDIUM or LARGE).
+    The Tile will always be that size, but can change colors.  The same
+    textures are used regardless of the size, the getTexture() method
+    scales the texture as needed for the size of the Tile.
+    The first time a Tile is created, it will statically load all the tile
+    colors for all Tiles to use.
+    Like the other Buttons, Tiles will interact with the mouse as long as
+    the mouse input is propagated up through the DisplayPanel chain, but
+    they must be told when to change their color, and can be manually
+    disabled, dimmed, hovered and pressed.
+
+    This class relies heavily on TileColor having the names of the colors
+    as part of the enums.  The textures will load like ActionButtons, using
+    the name as part of the filename to load.
+
+ */
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;

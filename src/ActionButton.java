@@ -1,3 +1,22 @@
+/*
+    class ActionButton
+
+    This is a Button that causes some action when clicked.  Examples are
+    the Menu button, which causes the program to display the Settings Menu,
+    and the Quit button, which causes the program to quit the game (after
+    confirmation using another ActionButton).
+
+    Each button's textures need to be named "<buttonName>.png",
+    "<buttonName>Hover.png", "<buttonName>Pressed.png" and
+    "<buttonName>Disabled.png", and be located in the buttons/ folder.
+    The ButtonID will have <buttonName> for each button, so coordinate with
+    that enumeration if the button names need to change.
+
+    The action button will present its texture depending on what mouse
+    interaction it is advised of by the DisplayPanel chain that contains it.
+
+ */
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

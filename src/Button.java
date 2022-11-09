@@ -1,3 +1,12 @@
+/*
+    class Button
+
+    This is a DisplayElement that will interact with the mouse, and when
+    interacted with will send messages to a controller to update the game
+    state in some way.
+
+ */
+
 import java.awt.*;
 
 public abstract class Button extends DisplayElement {
@@ -84,6 +93,10 @@ public abstract class Button extends DisplayElement {
 
     @Override
     public void mouseReleased(Point location) {
+        // checking if pressed prevents pressing one button and releasing
+        // on another button from activating the other button.  Instead,
+        // pressing on a button and releasing anywhere other than on that
+        // same button will simply cancel the button "click"
         if (enabled && pressed) {
             release();
             controller.react(this);

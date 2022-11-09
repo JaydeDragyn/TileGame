@@ -1,3 +1,23 @@
+/*
+    class MenuDisplayPanel
+
+    This DisplayPanel creates the menu that the user sets the game settings
+    with.
+    This DisplayPanel uses the default getTexture() method to draw the
+    elements and return that to the caller, however the elements list will
+    be different depending on the state of the menu:
+    If told to confirm starting a new game, it will point the elements list
+    to the confirmStartElements list.
+    If told to confirm quitting the game, it will point the elements list
+    to the confirmQuitElements list.
+    Most of the time, however, the elements list will point to the normal
+    menuElements list.
+    It holds handles to each of the buttons so that it can update the display
+    to show the user what options are chosen (RadioButtons), or to manually
+    make the hoverInfo stop displaying for a button that it just disabled.
+
+ */
+
 import java.awt.*;
 import java.util.ArrayList;
 

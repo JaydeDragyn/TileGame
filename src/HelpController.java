@@ -1,3 +1,15 @@
+/*
+    class HelpController
+
+    This controller responds to user input to either go back to the game in
+    progress (if one is in progress), or to direct the HelpDisplayPanel to
+    show the next/previous page of help.  There is no need here for another
+    class to keep track of which page is being displayed - we'll let the
+    HelpDisplayPanel keep track of that and just tell it what the user is
+    asking for.
+
+ */
+
 public class HelpController extends Controller {
 
     private final TileGameController tileGameController;
@@ -7,12 +19,10 @@ public class HelpController extends Controller {
         this.tileGameController = tileGameController;
     }
 
-    @Override
     public DisplayPanel getDisplayPanel() {
         return helpDisplayPanel;
     }
 
-    @Override
     public void initialize() {
         helpDisplayPanel = new HelpDisplayPanel(this);
         helpDisplayPanel.initialize();
@@ -20,7 +30,7 @@ public class HelpController extends Controller {
 
     @Override
     public void hover(Button button) {
-        tileGameController.hover(button);
+        tileGameController.showHoverInfo(button.getHoverText(), null);
     }
 
     @Override

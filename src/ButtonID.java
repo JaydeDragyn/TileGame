@@ -1,3 +1,22 @@
+/*
+    enum ButtonID
+
+    Every button will use a ButtonID, which will provide a way to add the
+    button's name (for ActionButtons, this will be the filename as well),
+    the button's hover text, and the button's Command, all in one place.
+    If we wanted to localize this game, we could modify this to contain
+    all the various hover texts in each language, and then instead of
+    hardcoding "Show the settings menu" on the BUTTON_MENU, have it point
+    to the current language setting's buttonMenu(language).
+
+    The image of the text on each button won't change without re-rendering
+    the buttons with the new language (or just drawing a new button altogether).
+
+    Using this ButtonID prevents the Controllers and the DisplayPanels from
+    needing to know specifics about each button beyond which ButtonID and
+    where to place it.
+
+ */
 public enum ButtonID {
     // Action Buttons
     BUTTON_MENU("Menu", "Show the settings menu", Command.SHOW_MENU),

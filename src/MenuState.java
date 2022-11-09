@@ -1,3 +1,24 @@
+/*
+    class MenuState
+
+    This is the "Model" part of the Model/Controller/View design for the
+    Menu system.  This model keeps track of the state of the menu -
+    which difficulty progression is currently selected, what the progression
+    colors are, and what size board is currently selected.
+    When the user clicks on one of the buttons or progression tiles, that
+    button's controller will tell us what to update.
+
+    This will use the TileColor's .nextColor() method to cycle through the
+    colors when the user clicks on a progression tile, skipping colors that
+    are already in the progression so that the game does not enter an
+    unplayable state.
+
+    When a new game is requested, this will capture the current
+    progression and current board size in a GameSettings object and
+    return that.
+
+ */
+
 import java.util.ArrayList;
 
 public class MenuState {

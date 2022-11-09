@@ -1,3 +1,17 @@
+/*
+    class GameState
+
+    This is the "Model" part of the Model/Controller/View design for the
+    game logic.  It keeps track of the colors of the tiles, calculates
+    the neighbors of a given tile, cycles the colors as needed when the
+    user clicks on a tile, and determines if the game has been won.
+
+    When provided with a GameSettings object, this will set up for a
+    new game, abandoning whatever game there was (whether a game in
+    progress or a completed game).
+
+ */
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -74,6 +88,10 @@ public class GameState {
                 (p.y < tiles.length);
     }
 
+    // Similar logic to the TileColor nextColor() method,
+    // this operates on the progression array, which is
+    // a limited number of colors, and should be guaranteed
+    // to have no repeated colors.
     private void cycleTile(Point p) {
         TileColor currentColor = tiles[p.y][p.x];
         TileColor newColor;

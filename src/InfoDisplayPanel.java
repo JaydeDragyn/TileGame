@@ -1,3 +1,19 @@
+/*
+    class InfoDisplayPanel
+
+    This DisplayPanel shows all the information that goes at the bottom of
+    the program window.  When the user hovers over a button, this will show
+    that button's hoverText.  This DisplayPanel is unique in that it needs to
+    be informed of when the GameDisplayPanel is shown or hidden so that it
+    can show the accompanying color progression for the user.
+    When generating the display, this will prioritize:
+
+    1. Temporary hover text, even if the GameDisplayPanel is showing
+    2. Game info
+    3. Empty background if nothing is hovered and GameDisplayPanel is hidden
+
+ */
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -6,14 +22,8 @@ public class InfoDisplayPanel extends DisplayPanel {
 
     private BufferedImage background;
     private ArrayList<DisplayElement> emptyList;
-
     private ArrayList<DisplayElement> hoverInfoElements;
-    private BufferedImage hoverInfoTexture;
-    private Graphics2D hoverInfoPen;
-
     private ArrayList<DisplayElement> gameInfoElements;
-    private BufferedImage gameInfoTexture;
-    private Graphics2D gameInfoPen;
     private boolean gameShowing;
 
     public InfoDisplayPanel(Controller controller) {
@@ -23,6 +33,8 @@ public class InfoDisplayPanel extends DisplayPanel {
 
     @Override
     public void initialize() {
+        pen.setColor(Color.BLACK);
+
         StaticImage backgroundImage = new StaticImage("Background", new Point(0, 0));
         background = new BufferedImage(500, 130, BufferedImage.TYPE_INT_RGB);
         Graphics2D backgroundPen = background.createGraphics();
@@ -30,36 +42,45 @@ public class InfoDisplayPanel extends DisplayPanel {
         backgroundPen.dispose();
 
         emptyList = elements;
-
         hoverInfoElements = new ArrayList<>();
-        hoverInfoTexture = new BufferedImage(500, 130, BufferedImage.TYPE_INT_RGB);
-        hoverInfoPen = hoverInfoTexture.createGraphics();
-        hoverInfoPen.setColor(Color.BLACK);
-
         gameInfoElements = new ArrayList<>();
-        gameInfoTexture = new BufferedImage(500, 130, BufferedImage.TYPE_INT_RGB);
-        gameInfoPen = gameInfoTexture.createGraphics();
-        gameInfoPen.setColor(Color.BLACK);
 
         gameShowing = false;
     }
 
+    // Per the priority list noted above, we'll draw the appropriate elements
+    // onto the DisplayPanel texture and then return it
     @Override
     public BufferedImage getTexture() {
+        pen.drawImage(background, 0, 0, null);
+
         if (hoverInfoElements.size() > 0) {
-            drawHoverInfoTexture();
             elements = hoverInfoElements;
-            return hoverInfoTexture;
-        }
+            if (hoverInfoElements.size() == 1) {
+                pen.fillRoundRect(0, 0, 500, 75, 25, 25);
+            } else {
+                pen.fillRoundRect(0, 0, 500, 119, 25, 25);
+            }
 
-        if (gameShowing) {
-            drawGameInfoTexture();
+        } else  if (gameShowing) {
             elements = gameInfoElements;
-            return gameInfoTexture;
+            pen.fillRoundRect(0, 0, 500, 119, 25, 25);
+
+        } else {
+            elements = emptyList;
         }
 
-        elements = emptyList;
-        return background;
+        for (DisplayElement element : elements) {
+            drawElement(pen, element);
+        }
+
+        return texture;
+    }
+
+    public void gameStarted(GameSettings gameSettings) {
+        gameInfoElements.clear();
+        gameInfoElements.add(createInfoTextLabel("Color progression for this game:", 10));
+        addTilesToList(gameInfoElements, gameSettings.progression());
     }
 
     public void gameShowing() {
@@ -70,6 +91,14 @@ public class InfoDisplayPanel extends DisplayPanel {
         gameShowing = false;
     }
 
+    // The TileGameDisplayPanel communicates what to show by providing
+    // zero, one or two arguments to this method.
+    // Zero arguments is null, null, and this tells us not to display
+    // any hover info, so we'll clear the list.
+    // One argument is just text, so we'll create a text label that is
+    // centered, so we can show it on an appropriately sized background.
+    // Two arguments is text and a color progression, so we can show
+    // both items in a larger black background.
     public void setHoverInfo(String text, ArrayList<TileColor> colors) {
         hoverInfoElements.clear();
 
@@ -85,12 +114,6 @@ public class InfoDisplayPanel extends DisplayPanel {
         }
     }
 
-    public void gameStarted(GameSettings gameSettings) {
-        gameInfoElements.clear();
-        gameInfoElements.add(createInfoTextLabel("Color progression for this game:", 10));
-        addTilesToList(gameInfoElements, gameSettings.progression());
-    }
-
     private TextLabel createInfoTextLabel(String text, int height) {
         int textStart = 250 - (TextLabel.getTextLabelSize(text, TextLabel.FontSize.SMALL).width / 2);
         return new TextLabel(text, new Point(textStart, height), TextLabel.FontSize.SMALL, Color.WHITE);
@@ -103,26 +126,6 @@ public class InfoDisplayPanel extends DisplayPanel {
         for (TileColor color : progression) {
             targetList.add(new Tile(ButtonID.TILE_HOVER_INFO, null, new Point(tileStart, 56), color, Tile.Size.MEDIUM, controller));
             tileStart += 60;
-        }
-    }
-
-    private void drawHoverInfoTexture() {
-        hoverInfoPen.drawImage(background, 0, 0, null);
-        if (hoverInfoElements.size() == 1) {
-            hoverInfoPen.fillRoundRect(0, 0, 500, 75, 25, 25);
-        } else {
-            hoverInfoPen.fillRoundRect(0, 0, 500, 119, 25, 25);
-        }
-        for (DisplayElement element : hoverInfoElements) {
-            drawElement(hoverInfoPen, element);
-        }
-    }
-
-    private void drawGameInfoTexture() {
-        gameInfoPen.drawImage(background, 0, 0, null);
-        gameInfoPen.fillRoundRect(0, 0, 500, 119, 25, 25);
-        for (DisplayElement element : gameInfoElements) {
-            drawElement(gameInfoPen, element);
         }
     }
 }

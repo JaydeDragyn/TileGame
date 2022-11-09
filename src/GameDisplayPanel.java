@@ -1,3 +1,17 @@
+/*
+    class GameDisplayPanel
+
+    This DisplayPanel creates tiles to play the game with, and adjusts
+    them as requested by the GameController.
+    Since Tiles are Display Elements, this DisplayPanel also uses the
+    default behavior of polling each element in the elements list to
+    draw their texture and then presents the completed texture to the
+    caller.  This allows the tiles to provide the appropriate texture
+    for their state (normal, hovered, pressed, dimmed) without this
+    DisplayPanel needing to know anything about the state of the game.
+
+ */
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -36,6 +50,9 @@ public class GameDisplayPanel extends DisplayPanel {
         }
     }
 
+    // Brute-force update to all the tiles each time around.
+    // For this application, there are at most 25 tiles, so
+    // the inefficiency is not worth the trouble to redesign.
     public void updateTileColors(TileColor[][] colors) {
         for (Tile[] tileRow : tiles) {
             for (Tile tile : tileRow) {
@@ -45,18 +62,23 @@ public class GameDisplayPanel extends DisplayPanel {
         }
     }
 
+    // The neighbors are already calculated for us, we just
+    // manually "hover" the list we're given
     public void expandHover(ArrayList<Point> neighbors) {
         for (Point neighbor : neighbors) {
             tiles[neighbor.y][neighbor.x].hover();
         }
     }
 
+    // The neighbors are already calculated for us, we just
+    // manually "press" the list we're given
     public void expandPress(ArrayList<Point> neighbors) {
         for (Point neighbor : neighbors) {
             tiles[neighbor.y][neighbor.x].press();
         }
     }
 
+    // Brute force clear all effects
     public void clearAll() {
         for (Tile[] tileRow : tiles) {
             for (Tile tile : tileRow) {
@@ -68,6 +90,7 @@ public class GameDisplayPanel extends DisplayPanel {
         }
     }
 
+    // Dim (.turnOff()) each tile if it is not the color we were given
     public void dimAllExcept(Tile tile) {
         for (Tile[] tileRow : tiles) {
             for (Tile t : tileRow) {
@@ -78,6 +101,7 @@ public class GameDisplayPanel extends DisplayPanel {
         }
     }
 
+    // Disable each tile if it is not the color we were given
     public void disableAllExcept(Tile tile) {
         for (Tile[] tileRow : tiles) {
             for (Tile t : tileRow) {
@@ -87,6 +111,7 @@ public class GameDisplayPanel extends DisplayPanel {
             }
         }
     }
+
 
     public void showWin() {
         addElement(new StaticImage("CongratsCoverTransparent", new Point(0, 0)));

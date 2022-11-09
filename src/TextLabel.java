@@ -1,3 +1,22 @@
+/*
+    class TextLabel
+
+    This converts the given text into an image that can be displayed like
+    a StaticImage.
+    A TextLabel allows the text to be in one of 3 sizes (using the inner
+    enum FontSize), and any Color.
+    A static utility method is also provided so a user of this class can
+    determine how big the label will be so the user can set an appropriate
+    position.
+    This class also registers the fonts that we are using in this program
+    the first time a TextLabel is created.  If we wanted to change the
+    font, we could just change the bold/regularFontNames in the
+    .registerFont() method to fonts placed in the fonts/ folder.
+    Once created, this is basically a Static Image that happens to be
+    text.
+
+ */
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

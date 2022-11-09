@@ -1,3 +1,12 @@
+/*
+    class MenuController
+
+    This controller interfaces between the MenuState (which keeps track of
+    what the user currently has selected for when a new game is started),
+    and the MenuDisplayPanel that the user is interacting with.
+
+ */
+
 public class MenuController extends Controller {
 
     private final TileGameController tileGameController;
@@ -8,7 +17,6 @@ public class MenuController extends Controller {
         this.tileGameController = tileGameController;
     }
 
-    @Override
     public void initialize() {
         menuDisplayPanel = new MenuDisplayPanel(this);
         menuDisplayPanel.initialize();
@@ -20,7 +28,6 @@ public class MenuController extends Controller {
         setBoardSize(GameSettings.BoardSize.SMALL_3X3);
     }
 
-    @Override
     public DisplayPanel getDisplayPanel() {
         return menuDisplayPanel;
     }
@@ -85,6 +92,15 @@ public class MenuController extends Controller {
         }
     }
 
+    // The menu may put up a confirmation dialog to confirm the user wants to
+    // start a new game while one is in progress, or to confirm the user
+    // really wants to quit.  .reset() is used if the user declines either of
+    // those confirmations.  If causes the Menu to display the settings
+    // elements again so the user can interact with them.
+    // This also is used so that if the user gets a confirmation dialog but
+    // clicks the Help button instead of Yes or No, the menu is reset so when
+    // (if) they go back to the Menu it shows the settings elements instead of
+    // the confirmation dialog.
     public void reset() {
         menuDisplayPanel.reset();
     }
@@ -114,6 +130,9 @@ public class MenuController extends Controller {
         hover(tile);
     }
 
+    // If there's no game in progress then we just send the message to start a
+    // new game.  Otherwise, we tell the MenuDisplayPanel to confirm that the
+    // user wants to abandon the game in progress to start a new one.
     private void startNewGame() {
         if (menuState.isGameInProgress()) {
             menuDisplayPanel.confirmStartNewGame();

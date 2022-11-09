@@ -1,3 +1,11 @@
+/*
+    enum Command
+
+    These are compiler-checked commands that the Buttons will use to inform the
+    controllers of the user's intent.
+
+ */
+
 public enum Command {
     SHOW_MENU,
     SHOW_HELP,

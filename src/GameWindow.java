@@ -1,3 +1,13 @@
+/*
+    class GameWindow
+
+    This is a JPanel that will:
+        create the program window
+        draw updates to the program window
+        provide user input to the rest of the program
+
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

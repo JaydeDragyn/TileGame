@@ -1,3 +1,17 @@
+/*
+    class TileGameDisplayPanel
+
+    This is the top-level DisplayPanel.  It holds both the InfoDisplayPanel
+    and a reference to one of the other DisplayPanels, depending on the
+    current program state.  When the GameWindow gets the texture,
+    this will use the default DisplayPanel procedure of calling for all
+    of its elements current textures and drawing them where they belong,
+    and then passing that texture to the GameWindow.  The result should
+    always be a full program window size texture that blanks everything
+    that was on screen previously.
+
+ */
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

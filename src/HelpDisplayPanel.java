@@ -1,3 +1,16 @@
+/*
+    class HelpDisplayPanel
+
+    This DisplayPanel creates the elements that show help and information.
+    It deviates from the getTexture() method so that it can show the specific
+    help page the user has navigated to.  Once each page is created, it is
+    saved as a single BufferedImage, so the get texture doesn't need to loop
+    through an arbitrary number of elements like the others, it just
+    manually draws the 3 buttons and the current help page before returning
+    the final texture.
+
+ */
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -43,6 +56,11 @@ public class HelpDisplayPanel extends DisplayPanel {
         return texture;
     }
 
+    // Assumes there is a previous page to go back to, and disables the
+    // Prev button when we get to the first page, so we should never
+    // end up going to page -1.  Also assumes there is a Next page to
+    // go to (the one we just came from!) so makes sure the Next button
+    // is enabled.
     public void showPrevPage() {
         currentPage--;
         nextButton.enable();
@@ -52,6 +70,11 @@ public class HelpDisplayPanel extends DisplayPanel {
         }
     }
 
+    // Assumes there is a next page to go forward to, and disables the
+    // Next button when we get to the last page that was created, so we
+    // should never end up going past the last page.  Also assumes there
+    // is a previous page to go to (the one we just came from!) so makes
+    // sure the Prev button is enabled.
     public void showNextPage() {
         currentPage++;
         prevButton.enable();
@@ -70,6 +93,12 @@ public class HelpDisplayPanel extends DisplayPanel {
         backButton.disable();
     }
 
+    // The initializePageX() methods all create temporary elements for each
+    // text label (we could also add tiles, buttons, and other images if we
+    // want to get fancy), and then draws them to a single BufferedImage,
+    // so that the getText can just draw the current page by drawing that
+    // BufferedImage instead of looping through an arbitrary list of elements
+    // that are not going to update with mouse interaction.
     private void initializePage0() {
         BufferedImage page0 = new BufferedImage(500, 400, BufferedImage.TYPE_INT_RGB);
         Graphics2D pagePen = page0.createGraphics();
